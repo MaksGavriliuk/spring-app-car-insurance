@@ -2,6 +2,7 @@ package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.services.UserAuthenticationService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auths")
+@Slf4j
 public class UserAuthenticationController {
 
     @Autowired
@@ -47,10 +49,10 @@ public class UserAuthenticationController {
         return ResponseEntity.ok().build();
     }
 
-
     @PostMapping("/validate-password/{id}")
     public ResponseEntity<Boolean> validatePassword(@PathVariable Integer id, @RequestBody Map<String, String> requestBody) {
         boolean isValid = userAuthenticationService.isPasswordValid(id, requestBody.get("password"));
         return ResponseEntity.ok(isValid);
     }
+
 }

@@ -23,7 +23,6 @@ public class BrandService {
     }
 
     public void saveBrand(Brand brand) {
-        log.info("Saving new {}", brand);
         brandRepository.save(brand);
     }
 
