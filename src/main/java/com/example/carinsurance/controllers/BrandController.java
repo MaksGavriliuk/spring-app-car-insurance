@@ -2,50 +2,46 @@ package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.services.BrandService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 
-import java.util.Map;
+import java.util.List;
 
-@Controller
-@RequiredArgsConstructor
+
+@RestController
+@RequestMapping("/brands")
 public class BrandController {
 
-    private final BrandService brandService;
+    @Autowired
+    private BrandService brandService;
 
-    @GetMapping("/brands")
-    public String brands(@RequestParam(name = "brand", required = false) String brand,
-                         Map<String, Object> model) {
-        model.put("brands", brandService.listBrands(brand));
-        return "brands";
+    @GetMapping
+    public List<Brand> getBrands(@RequestParam(name = "brand", required = false) String brand) {
+        return brandService.listBrands(brand);
     }
 
-    @GetMapping("/brands/{id}")
-    public String brandInfo(@PathVariable Long id, Map<String, Object> model) {
-        model.put("brand", brandService.getBrandById(id));
-        return "brand-info";
+    @GetMapping("/{id}")
+    public Brand getBrandInfo(@PathVariable Integer id) {
+        return brandService.getBrandById(id);
     }
 
-//    @PostMapping("/brands/create")
-//    public String createBrand(@RequestParam("brand") String brandName) {
-//        brandService.saveBrand(new Brand(brandName));
-//        return "redirect:/brands";
-//    }
-
-    @PostMapping("/brands/create")
-    public String createBrand(Brand brand) {
+    @PostMapping("/create")
+    public ResponseEntity<Void> createBrand(@RequestBody Brand brand) {
         brandService.saveBrand(brand);
-        return "redirect:/brands";
+        return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/brands/delete/{id}")
-    public String deleteBrand(@PathVariable Long id) {
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteBrand(@PathVariable Integer id) {
         brandService.deleteBrand(id);
-        return "redirect:/brands";
+        return ResponseEntity.ok().build();
     }
 
 }

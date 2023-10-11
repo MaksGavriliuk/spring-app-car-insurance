@@ -21,7 +21,7 @@ public class Model {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "model")
     private String model;

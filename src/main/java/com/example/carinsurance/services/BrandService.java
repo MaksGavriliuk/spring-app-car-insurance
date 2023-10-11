@@ -18,7 +18,7 @@ public class BrandService {
 
     public List<Brand> listBrands(String brand) {
         if (brand != null)
-            brandRepository.findByBrand(brand);
+            return brandRepository.findByBrand(brand);
         return brandRepository.findAll();
     }
 
@@ -27,11 +27,11 @@ public class BrandService {
         brandRepository.save(brand);
     }
 
-    public void deleteBrand(long id) {
+    public void deleteBrand(int id) {
         brandRepository.deleteById(id);
     }
 
-    public Brand getBrandById(Long id) {
+    public Brand getBrandById(int id) {
         return brandRepository.findById(id).orElse(null);
     }
 
