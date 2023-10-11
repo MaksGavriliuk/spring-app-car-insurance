@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ModelRepository extends JpaRepository<Model, Integer> {
     List<Model> findByModel(String modelName);
-    List<Model> findByBrand(String brandName);
+    List<Model> findByBrand(Brand brand);
 }

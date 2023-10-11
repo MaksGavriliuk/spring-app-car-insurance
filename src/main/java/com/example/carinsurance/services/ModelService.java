@@ -20,7 +20,9 @@ import java.util.List;
 //@NoArgsConstructor
 public class ModelService {
 
+    @Autowired
     private ModelRepository modelRepository;
+    @Autowired
     private BrandRepository brandRepository;
 
 
@@ -31,12 +33,11 @@ public class ModelService {
         return modelRepository.findAll();
     }
 
-    public List<Model> getModelsByBrand(String brandName) {
-        return modelRepository.findByBrand(brandName);
-    }
+//    public List<Model> getModelsByBrand(String brandName) {
+//        return modelRepository.findByBrand(brandName);
+//    }
 
     public void saveModel(Model model, String brandName) {
-
         List<Brand> brands = brandRepository.findByBrand(brandName);
         Brand brand;
 
@@ -50,7 +51,6 @@ public class ModelService {
 
         model.setBrand(brand);
         modelRepository.save(model);
-
     }
 
     public void deleteModel(int id) {
@@ -60,7 +60,5 @@ public class ModelService {
     public Model getModelById(int id) {
         return modelRepository.findById(id).orElse(null);
     }
-
-
 
 }
