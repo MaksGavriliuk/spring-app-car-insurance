@@ -16,10 +16,10 @@ public class UserAuthentication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "login")
+    private String login;
 
     @Column(name = "password")
     private String password;
