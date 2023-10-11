@@ -23,7 +23,7 @@ public class EngineVolume {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "engine_volume", precision = 5, scale = 2)
+    @Column(name = "engine_volume", precision = 5, scale = 2, nullable = false)
     private BigDecimal engineVolume;
 
 }
