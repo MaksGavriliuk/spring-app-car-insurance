@@ -32,7 +32,7 @@ public class FuelTypeController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFuelType(@PathVariable Integer id) {
         fuelTypeService.deleteFuelType(id);
         return ResponseEntity.ok().build();
