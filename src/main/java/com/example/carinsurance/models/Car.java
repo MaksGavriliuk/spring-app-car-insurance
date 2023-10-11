@@ -7,33 +7,41 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "models")
+@Table(name = "cars")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Model {
+public class Car {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "model")
-    private String model;
+    @ManyToOne
+    @JoinColumn(name = "model_id")
+    private Model model;
 
     @ManyToOne
-    @JoinColumn(name = "brand_id")
-    private Brand brand;
+    @JoinColumn(name = "engine_volume_id")
+    private EngineVolume engineVolume;
 
-    @OneToMany(mappedBy = "model")
-    private List<Car> cars;
+    @ManyToOne
+    @JoinColumn(name = "fuel_type_id")
+    private FuelType fuelType;
+
+    @Column(name = "production_year")
+    private int productionYear;
+
+    @Column(name = "current_value", precision = 10, scale = 2)
+    private BigDecimal currentValue;
 
 }
