@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping("/models")
@@ -26,7 +26,7 @@ public class ModelController {
     @GetMapping
     public List<Model> getModels(
             @RequestParam(name = "model", required = false) String model)//,
-//            @RequestParam(name = "brand", required = false) String brand)
+// @RequestParam(name = "brand", required = false) String brand)
     {
         return modelService.listModels(model);
     }
@@ -45,11 +45,6 @@ public class ModelController {
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/create")
-//    public ResponseEntity<Void> createModel(@RequestBody Map<String, Object> modelData) {
-//        modelService.saveModel(modelData);
-//        return ResponseEntity.ok().build();
-//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteModel(@PathVariable Integer id) {

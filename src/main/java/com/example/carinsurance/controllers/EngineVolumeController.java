@@ -1,10 +1,7 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.EngineVolume;
-import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.EngineVolumeService;
-import com.example.carinsurance.services.ModelService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

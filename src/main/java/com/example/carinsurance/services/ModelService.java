@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class ModelService {
@@ -46,28 +46,6 @@ public class ModelService {
         modelRepository.save(model);
     }
 
-//    public void saveModel(Map<String, Object> modelData) {
-//
-//        String brandName = (String) modelData.get("brand");
-//        String modelName = (String) modelData.get("model");
-//
-//        List<Brand> brands = brandRepository.findByBrand(brandName);
-//        Brand brand;
-//
-//        if (brands.isEmpty()) {
-//            brand = new Brand();
-//            brand.setBrand(brandName);
-//            brandRepository.save(brand);
-//        } else {
-//            brand = brands.get(0);
-//        }
-//
-//        Model model = new Model();
-//
-//        model.setModel(modelName);
-//        model.setBrand(brand);
-//        modelRepository.save(model);
-//    }
 
     public void deleteModel(int id) {
         modelRepository.deleteById(id);
@@ -76,5 +54,13 @@ public class ModelService {
     public Model getModelById(int id) {
         return modelRepository.findById(id).orElse(null);
     }
+
+//    public List<Model> getModelsByBrandAndModel(String brand, String model) {
+//        return modelRepository.getModelsByBrandAndModel(brand, model);
+//    }
+//
+//    public List<Model> getModelsByBrand(String brand) {
+//        return modelRepository.getModelsByBrand(brand);
+//    }
 
 }

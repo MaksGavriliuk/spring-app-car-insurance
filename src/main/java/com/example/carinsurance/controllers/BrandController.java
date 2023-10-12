@@ -28,7 +28,6 @@ public class BrandController {
 
     @GetMapping
     public List<Brand> getBrands(@RequestParam(name = "brand", required = false) String brand) {
-        log.info("try to get data");
         return brandService.listBrands(brand);
     }
 
