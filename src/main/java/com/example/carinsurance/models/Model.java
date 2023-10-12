@@ -1,5 +1,6 @@
 package com.example.carinsurance.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +34,8 @@ public class Model {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @OneToMany(mappedBy = "model")
-    private List<Car> cars;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "model")
+//    private List<Car> cars;
 
 }

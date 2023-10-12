@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -37,16 +38,28 @@ public class CarController {
         return ResponseEntity.ok(car);
     }
 
+//    @PostMapping("/create")
+//    public ResponseEntity<Car> createCar(
+//            @RequestBody Car car,
+//            @RequestParam(value = "model", required = true) String model,
+//            @RequestParam(value = "engine-volume", required = true) String engineVolume,
+//            @RequestParam(value = "fuel-type", required = true) String fuelType
+//    ) {
+//        Car createdCar = carService.createCar(car);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
+//    }
+
     @PostMapping("/create")
     public ResponseEntity<Car> createCar(
             @RequestBody Car car,
-            @RequestParam(value = "model", required = true) String model,
+            @RequestParam(value = "model", required = true) String modelName,
             @RequestParam(value = "engine-volume", required = true) String engineVolume,
             @RequestParam(value = "fuel-type", required = true) String fuelType
     ) {
-        Car createdCar = carService.createCar(car);
+        Car createdCar = carService.createCar(car, modelName, engineVolume, fuelType);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
     }
+
 
 //    @PutMapping("/{id}")
 //    public ResponseEntity<Car> updateCar(@PathVariable int id, @RequestBody Car updatedCar) {

@@ -30,27 +30,7 @@ public class ModelService {
 //        return modelRepository.findByBrand(brandName);
 //    }
 
-//    public void saveModel(Model model, String brandName) {
-//        List<Brand> brands = brandRepository.findByBrand(brandName);
-//        Brand brand;
-//
-//        if (brands.isEmpty()) {
-//            brand = new Brand();
-//            brand.setBrand(brandName);
-//            brandRepository.save(brand);
-//        } else {
-//            brand = brands.get(0);
-//        }
-//
-//        model.setBrand(brand);
-//        modelRepository.save(model);
-//    }
-
-    public void saveModel(Map<String, Object> modelData) {
-
-        String brandName = (String) modelData.get("brand");
-        String modelName = (String) modelData.get("model");
-
+    public void saveModel(Model model, String brandName) {
         List<Brand> brands = brandRepository.findByBrand(brandName);
         Brand brand;
 
@@ -62,12 +42,32 @@ public class ModelService {
             brand = brands.get(0);
         }
 
-        Model model = new Model();
-
-        model.setModel(modelName);
         model.setBrand(brand);
         modelRepository.save(model);
     }
+
+//    public void saveModel(Map<String, Object> modelData) {
+//
+//        String brandName = (String) modelData.get("brand");
+//        String modelName = (String) modelData.get("model");
+//
+//        List<Brand> brands = brandRepository.findByBrand(brandName);
+//        Brand brand;
+//
+//        if (brands.isEmpty()) {
+//            brand = new Brand();
+//            brand.setBrand(brandName);
+//            brandRepository.save(brand);
+//        } else {
+//            brand = brands.get(0);
+//        }
+//
+//        Model model = new Model();
+//
+//        model.setModel(modelName);
+//        model.setBrand(brand);
+//        modelRepository.save(model);
+//    }
 
     public void deleteModel(int id) {
         modelRepository.deleteById(id);

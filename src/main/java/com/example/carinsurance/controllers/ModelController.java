@@ -36,20 +36,20 @@ public class ModelController {
         return modelService.getModelById(id);
     }
 
-//    @PostMapping("/create")
-//    public ResponseEntity<Void> createModel(
-//            @RequestBody Model model,
-//            @RequestParam("brandName") String brandName)
-//    {
-//        modelService.saveModel(model, brandName);
-//        return ResponseEntity.ok().build();
-//    }
-
     @PostMapping("/create")
-    public ResponseEntity<Void> createModel(@RequestBody Map<String, Object> modelData) {
-        modelService.saveModel(modelData);
+    public ResponseEntity<Void> createModel(
+            @RequestBody Model model,
+            @RequestParam("brand-name") String brandName)
+    {
+        modelService.saveModel(model, brandName);
         return ResponseEntity.ok().build();
     }
+
+//    @PostMapping("/create")
+//    public ResponseEntity<Void> createModel(@RequestBody Map<String, Object> modelData) {
+//        modelService.saveModel(modelData);
+//        return ResponseEntity.ok().build();
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteModel(@PathVariable Integer id) {
