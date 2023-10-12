@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/models")
@@ -35,12 +36,18 @@ public class ModelController {
         return modelService.getModelById(id);
     }
 
+//    @PostMapping("/create")
+//    public ResponseEntity<Void> createModel(
+//            @RequestBody Model model,
+//            @RequestParam("brandName") String brandName)
+//    {
+//        modelService.saveModel(model, brandName);
+//        return ResponseEntity.ok().build();
+//    }
+
     @PostMapping("/create")
-    public ResponseEntity<Void> createModel(
-            @RequestBody Model model,
-            @RequestParam("brandName") String brandName)
-    {
-        modelService.saveModel(model, brandName);
+    public ResponseEntity<Void> createModel(@RequestBody Map<String, Object> modelData) {
+        modelService.saveModel(modelData);
         return ResponseEntity.ok().build();
     }
 
