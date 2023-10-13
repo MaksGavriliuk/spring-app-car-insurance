@@ -1,8 +1,10 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.EngineVolume;
 import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.models.Model;
+import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.CarRepository;
 import com.example.carinsurance.models.Car;
 import com.example.carinsurance.repositories.EngineVolumeRepository;
@@ -17,6 +19,8 @@ import java.util.List;
 @Service
 public class CarService {
 
+    @Autowired
+    private BrandRepository brandRepository;
     @Autowired
     private ModelRepository modelRepository;
     @Autowired
@@ -42,29 +46,60 @@ public class CarService {
 //        return carRepository.save(car);
 //    }
 
-    public Car createCar(Car car, String modelName, String engineVolume, String fuelType) {
-        // Создание модели
-        Model model = new Model();
-        model.setModel(modelName);
-        modelRepository.save(model);
+    public Car createCar(Car car, String brandName, String modelName, String engineVolumeValue, String fuelTypeValue) {
 
-        BigDecimal engineVolumeValue = new BigDecimal(engineVolume);
-        // Установка объема двигателя
-        EngineVolume engineVolumeEntity = new EngineVolume();
-        engineVolumeEntity.setEngineVolume(engineVolumeValue);
-        engineVolumeRepository.save(engineVolumeEntity);
+        List<Brand> brands = brandRepository.findByBrand(brandName);
+        Brand brand;
 
-        // Создание типа топлива
-        FuelType fuelTypeEntity = new FuelType();
-        fuelTypeEntity.setFuelType(fuelType);
-        fuelTypeRepository.save(fuelTypeEntity);
+        if (brands.isEmpty()) {
+            brand = new Brand();
+            brand.setBrand(brandName);
+            brandRepository.save(brand);
+        } else {
+            brand = brands.get(0);
+        }
 
-        // Установка связей в машине
+        List<Model> models = modelRepository.findByModel(modelName);
+        Model model;
+
+        if (models.isEmpty()) {
+            model = new Model();
+            model.setModel(modelName);
+            model.setBrand(brand);
+            modelRepository.save(model);
+        } else {
+            model = models.get(0);
+        }
+
+        List<EngineVolume> engineVolumes = engineVolumeRepository.findByEngineVolume(new BigDecimal(engineVolumeValue));
+        EngineVolume engineVolume;
+
+        if (engineVolumes.isEmpty()) {
+            engineVolume = new EngineVolume();
+            engineVolume.setEngineVolume(new BigDecimal(engineVolumeValue));
+            engineVolumeRepository.save(engineVolume);
+        } else {
+            engineVolume = engineVolumes.get(0);
+        }
+
+        List<FuelType> fuelTypes = fuelTypeRepository.findByFuelType(fuelTypeValue);
+        FuelType fuelType;
+
+        if (fuelTypes.isEmpty()) {
+            fuelType = new FuelType();
+            fuelType.setFuelType(fuelTypeValue);
+            fuelTypeRepository.save(fuelType);
+        } else {
+            fuelType = fuelTypes.get(0);
+        }
+
         car.setModel(model);
-        car.setEngineVolume(engineVolumeEntity);
-        car.setFuelType(fuelTypeEntity);
+        car.setEngineVolume(engineVolume);
+        car.setFuelType(fuelType);
 
-        return carRepository.save(car);
+        carRepository.save(car);
+        return car;
+
     }
 
 

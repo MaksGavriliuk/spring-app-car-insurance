@@ -42,11 +42,12 @@ public class CarController {
     @PostMapping("/create")
     public ResponseEntity<Car> createCar(
             @RequestBody Car car,
+            @RequestParam(value = "brand", required = true) String brandName,
             @RequestParam(value = "model", required = true) String modelName,
             @RequestParam(value = "engine-volume", required = true) String engineVolume,
             @RequestParam(value = "fuel-type", required = true) String fuelType
     ) {
-        Car createdCar = carService.createCar(car, modelName, engineVolume, fuelType);
+        Car createdCar = carService.createCar(car, brandName, modelName, engineVolume, fuelType);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
     }
 

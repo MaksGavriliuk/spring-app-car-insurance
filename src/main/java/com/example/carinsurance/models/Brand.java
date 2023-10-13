@@ -1,6 +1,5 @@
 package com.example.carinsurance.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,7 +28,6 @@ public class Brand {
     @Column(name = "brand")
     private String brand;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Model> models;
 

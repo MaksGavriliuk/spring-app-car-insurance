@@ -1,5 +1,6 @@
 package com.example.carinsurance.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class FuelType {
     @Column(name = "fuel_type")
     private String fuelType;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "fuelType")
     private List<Car> cars;
 
