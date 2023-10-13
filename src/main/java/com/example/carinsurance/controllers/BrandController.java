@@ -1,6 +1,7 @@
 package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.models.Brand;
+import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.BrandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class BrandController {
     public ResponseEntity<Void> deleteBrand(@PathVariable Integer id) {
         brandService.deleteBrand(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/models")
+    public List<Model> getModelsByBrand(@PathVariable Integer id) {
+        return brandService.getModelsByBrand(brandService.getBrandById(id).getBrand());
     }
 
 }
