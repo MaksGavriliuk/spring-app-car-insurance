@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 
+
 @Service
 public class CarService {
 
@@ -30,23 +31,12 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
-    public CarService(CarRepository carRepository) {
-        this.carRepository = carRepository;
-    }
 
-    public List<Car> getAllCars() {
+    public List<Car> listCars() {
         return carRepository.findAll();
     }
 
-    public Car getCarById(int id) {
-        return carRepository.findById(id).orElse(null);
-    }
-
-//    public Car createCar(Car car, String modelName, String engineVolume, String fuelType) {
-//        return carRepository.save(car);
-//    }
-
-    public Car createCar(Car car, String brandName, String modelName, String engineVolumeValue, String fuelTypeValue) {
+    public void saveCar(Car car, String brandName, String modelName, String engineVolumeValue, String fuelTypeValue) {
 
         List<Brand> brands = brandRepository.findByBrand(brandName);
         Brand brand;
@@ -98,13 +88,15 @@ public class CarService {
         car.setFuelType(fuelType);
 
         carRepository.save(car);
-        return car;
 
     }
 
-
     public void deleteCar(int id) {
         carRepository.deleteById(id);
+    }
+
+    public Car getCarById(int id) {
+        return carRepository.findById(id).orElse(null);
     }
 
 }

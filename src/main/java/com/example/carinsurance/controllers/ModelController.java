@@ -3,6 +3,7 @@ package com.example.carinsurance.controllers;
 import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,33 +24,30 @@ public class ModelController {
     @Autowired
     private ModelService modelService;
 
+
     @GetMapping
     public List<Model> getModels(
-            @RequestParam(name = "model", required = false) String model)//,
-// @RequestParam(name = "brand", required = false) String brand)
-    {
+            @RequestParam(name = "model", required = false) String model) {
         return modelService.listModels(model);
-    }
-
-    @GetMapping("/{id}")
-    public Model getModelInfo(@PathVariable Integer id) {
-        return modelService.getModelById(id);
     }
 
     @PostMapping("/create")
     public ResponseEntity<Void> createModel(
-            @RequestBody Model model,
-            @RequestParam("brand-name") String brandName)
-    {
+            @RequestParam("brand-name") String brandName,
+            @RequestBody Model model) {
         modelService.saveModel(model, brandName);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteModel(@PathVariable Integer id) {
         modelService.deleteModel(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public Model getModelById(@PathVariable Integer id) {
+        return modelService.getModelById(id);
     }
 
 }

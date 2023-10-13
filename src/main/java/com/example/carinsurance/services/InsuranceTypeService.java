@@ -7,13 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class InsuranceTypeService {
 
     @Autowired
     private InsuranceTypeRepository insuranceTypeRepository;
 
-    public List<InsuranceType> listInsuranceTypes(){
+
+    public List<InsuranceType> listInsuranceTypes() {
         return insuranceTypeRepository.findAll();
     }
 
@@ -21,12 +23,13 @@ public class InsuranceTypeService {
         insuranceTypeRepository.save(insuranceType);
     }
 
-    public InsuranceType getInsuranceTypeById(int id) {
-        return insuranceTypeRepository.findById(id).orElse(null);
-    }
-
     public void deleteInsuranceType(int id) {
         insuranceTypeRepository.deleteById(id);
+    }
+
+
+    public InsuranceType getInsuranceTypeById(int id) {
+        return insuranceTypeRepository.findById(id).orElse(null);
     }
 
 }

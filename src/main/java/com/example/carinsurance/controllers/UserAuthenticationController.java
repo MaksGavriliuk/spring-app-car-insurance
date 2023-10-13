@@ -4,6 +4,7 @@ import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.services.UserAuthenticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/auths")
 @Slf4j
@@ -26,27 +28,26 @@ public class UserAuthenticationController {
 
 
     @GetMapping
-    public List<UserAuthentication> listUserAuthentication() {
-        return userAuthenticationService.listUserAuthentication();
+    public List<UserAuthentication> getUserAuthentications() {
+        return userAuthenticationService.listUserAuthentications();
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserAuthentication> createUserAuthentication(
+    public ResponseEntity<Void> createUserAuthentication(
             @RequestBody UserAuthentication userAuthentication) {
-        UserAuthentication savedUserAuthentication = userAuthenticationService.saveUserAuthentication(userAuthentication);
-        return ResponseEntity.ok(savedUserAuthentication);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<UserAuthentication> getUserAuthenticationById(@PathVariable Integer id) {
-        UserAuthentication userAuthentication = userAuthenticationService.getUserAuthenticationById(id);
-        return userAuthentication != null ? ResponseEntity.ok(userAuthentication) : ResponseEntity.notFound().build();
+        userAuthenticationService.saveUserAuthentication(userAuthentication);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserAuthentication(@PathVariable Integer id) {
         userAuthenticationService.deleteUserAuthentication(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public UserAuthentication getUserAuthenticationById(@PathVariable Integer id) {
+        return userAuthenticationService.getUserAuthenticationById(id);
     }
 
     @PostMapping("/validate-password/{id}")

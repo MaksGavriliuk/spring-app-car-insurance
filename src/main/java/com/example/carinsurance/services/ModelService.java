@@ -26,10 +26,6 @@ public class ModelService {
         return modelRepository.findAll();
     }
 
-//    public List<Model> getModelsByBrand(String brandName) {
-//        return modelRepository.findByBrand(brandName);
-//    }
-
     public void saveModel(Model model, String brandName) {
         List<Brand> brands = brandRepository.findByBrand(brandName);
         Brand brand;
@@ -44,8 +40,8 @@ public class ModelService {
 
         model.setBrand(brand);
         modelRepository.save(model);
-    }
 
+    }
 
     public void deleteModel(int id) {
         modelRepository.deleteById(id);
@@ -54,13 +50,5 @@ public class ModelService {
     public Model getModelById(int id) {
         return modelRepository.findById(id).orElse(null);
     }
-
-//    public List<Model> getModelsByBrandAndModel(String brand, String model) {
-//        return modelRepository.getModelsByBrandAndModel(brand, model);
-//    }
-//
-//    public List<Model> getModelsByBrand(String brand) {
-//        return modelRepository.getModelsByBrand(brand);
-//    }
 
 }

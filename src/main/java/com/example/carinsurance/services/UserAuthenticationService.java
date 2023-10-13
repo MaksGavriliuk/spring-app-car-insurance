@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class UserAuthenticationService {
 
@@ -15,7 +16,7 @@ public class UserAuthenticationService {
     private UserAuthenticationRepository userAuthenticationRepository;
 
 
-    public List<UserAuthentication> listUserAuthentication() {
+    public List<UserAuthentication> listUserAuthentications() {
         return userAuthenticationRepository.findAll();
     }
 
@@ -24,16 +25,16 @@ public class UserAuthenticationService {
         return userAuthenticationRepository.save(userAuthentication);
     }
 
+    public void deleteUserAuthentication(Integer id) {
+        userAuthenticationRepository.deleteById(id);
+    }
+
     public UserAuthentication getUserAuthenticationById(Integer id) {
         return userAuthenticationRepository.findById(id).orElse(null);
     }
 
     public UserAuthentication getUserAuthenticationByLogin(String login) {
         return userAuthenticationRepository.findByLogin(login);
-    }
-
-    public void deleteUserAuthentication(Integer id) {
-        userAuthenticationRepository.deleteById(id);
     }
 
     public boolean isPasswordValid(Integer id, String password) {

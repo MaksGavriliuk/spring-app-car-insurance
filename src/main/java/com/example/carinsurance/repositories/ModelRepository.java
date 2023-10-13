@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface ModelRepository extends JpaRepository<Model, Integer> {
     List<Model> findByModel(String modelName);
-//    public List<Model> getModelsByBrand(String brand);
-//    public List<Model> getModelsByBrandAndModel(String brand, String model);
 }

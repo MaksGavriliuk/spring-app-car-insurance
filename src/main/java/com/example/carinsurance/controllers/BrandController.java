@@ -5,6 +5,7 @@ import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.BrandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,21 +31,21 @@ public class BrandController {
         return brandService.listBrands(brand);
     }
 
-    @GetMapping("/{id}")
-    public Brand getBrandInfo(@PathVariable Integer id) {
-        return brandService.getBrandById(id);
-    }
-
     @PostMapping("/create")
     public ResponseEntity<Void> createBrand(@RequestBody Brand brand) {
         brandService.saveBrand(brand);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBrand(@PathVariable Integer id) {
         brandService.deleteBrand(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public Brand getBrandById(@PathVariable Integer id) {
+        return brandService.getBrandById(id);
     }
 
     @GetMapping("/{id}/models")
