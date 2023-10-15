@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,7 +29,11 @@ public class UserAuthenticationController {
 
 
     @GetMapping
-    public List<UserAuthentication> getUserAuthentications() {
+    public List<UserAuthentication> getUserAuthentications(@RequestParam(name = "login", required = false) String login) {
+        if (login != null) {
+            UserAuthentication userAuthentication = userAuthenticationService.getUserAuthenticationByLogin(login);
+            return (userAuthentication == null) ? null : List.of(userAuthentication);
+        }
         return userAuthenticationService.listUserAuthentications();
     }
 
