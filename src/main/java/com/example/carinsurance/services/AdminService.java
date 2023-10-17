@@ -1,6 +1,7 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.AdminDTO;
+import com.example.carinsurance.exceptions.AdminException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.UserAuthentication;
@@ -35,11 +36,14 @@ public class AdminService {
     }
 
     public void deleteAdmin(int id) {
+        if (!adminRepository.existsById(id))
+            throw new AdminException("Администратора с таким id не существует");
         adminRepository.deleteById(id);
     }
 
     public Admin getAdminById(int id) {
-        return adminRepository.findById(id).orElse(null);
+        return adminRepository.findById(id)
+                .orElseThrow(() -> new AdminException("Администратора с таким id не существует"));
     }
 
     public Admin mapAdminDTOToAdmin(AdminDTO adminDTO) {
