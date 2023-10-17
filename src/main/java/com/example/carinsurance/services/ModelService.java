@@ -5,7 +5,6 @@ import com.example.carinsurance.exceptions.BrandNotFoundException;
 import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
-import com.example.carinsurance.models.Brand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
