@@ -37,7 +37,8 @@ public class UserService {
     }
 
     public User getUserById(int id){
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserAuthenticationException("Пользователя с таким логином не существует"));
     }
 
     public User mapUserDTOToUser(UserDTO userDTO) {

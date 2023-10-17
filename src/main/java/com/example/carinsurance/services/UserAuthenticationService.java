@@ -1,5 +1,6 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class UserAuthenticationService {
     }
 
     public UserAuthentication getUserAuthenticationById(Integer id) {
-        return userAuthenticationRepository.findById(id).orElse(null);
+        return userAuthenticationRepository.findById(id)
+                .orElseThrow(() -> new UserAuthenticationException("Пользователя с таким id не существует"));
     }
 
     public UserAuthentication getUserAuthenticationByLogin(String login) {

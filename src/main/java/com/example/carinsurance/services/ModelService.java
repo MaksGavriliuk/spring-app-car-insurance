@@ -2,6 +2,7 @@ package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.ModelDTO;
 import com.example.carinsurance.exceptions.BrandException;
+import com.example.carinsurance.exceptions.ModelException;
 import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
@@ -38,7 +39,8 @@ public class ModelService {
     }
 
     public Model getModelById(int id) {
-        return modelRepository.findById(id).orElse(null);
+        return modelRepository.findById(id)
+                .orElseThrow(() -> new ModelException("Модель с таким id не найдена"));
     }
 
     public Model mapModelDTOToModel(ModelDTO modelDTO) {
