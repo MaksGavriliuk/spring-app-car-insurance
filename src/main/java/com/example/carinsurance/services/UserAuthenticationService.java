@@ -20,9 +20,9 @@ public class UserAuthenticationService {
         return userAuthenticationRepository.findAll();
     }
 
-    public UserAuthentication saveUserAuthentication(UserAuthentication userAuthentication) {
+    public void saveUserAuthentication(UserAuthentication userAuthentication) {
         userAuthentication.setPassword(new BCryptPasswordEncoder().encode(userAuthentication.getPassword()));
-        return userAuthenticationRepository.save(userAuthentication);
+        userAuthenticationRepository.save(userAuthentication);
     }
 
     public void deleteUserAuthentication(Integer id) {
