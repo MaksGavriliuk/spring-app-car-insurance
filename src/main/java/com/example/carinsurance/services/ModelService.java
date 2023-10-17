@@ -1,6 +1,7 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.ModelDTO;
+import com.example.carinsurance.exceptions.BrandNotFoundException;
 import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
@@ -28,16 +29,9 @@ public class ModelService {
     }
 
     public void saveModel(ModelDTO modelDTO) {
-
-        Brand brand = brandRepository.findById(modelDTO.getBrandId()).orElse(null);
-
-        if (brand != null) {
-            Model model = mapModelDTOToModel(modelDTO);
-            modelRepository.save(model);
-        } else {
-            throw new NullPointerException("Бренд не существует");
-        }
-
+        brandRepository.findById(modelDTO.getBrandId()).orElseThrow(() -> new BrandNotFoundException("Бренд не существует"));
+        Model model = mapModelDTOToModel(modelDTO);
+        modelRepository.save(model);
     }
 
     public void deleteModel(int id) {
