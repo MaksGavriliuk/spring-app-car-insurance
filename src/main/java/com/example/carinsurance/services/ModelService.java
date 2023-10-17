@@ -1,7 +1,7 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.ModelDTO;
-import com.example.carinsurance.exceptions.BrandNotFoundException;
+import com.example.carinsurance.exceptions.BrandException;
 import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
@@ -28,7 +28,7 @@ public class ModelService {
     }
 
     public void saveModel(ModelDTO modelDTO) {
-        brandRepository.findById(modelDTO.getBrandId()).orElseThrow(() -> new BrandNotFoundException("Бренд не существует"));
+        brandRepository.findById(modelDTO.getBrandId()).orElseThrow(() -> new BrandException("Бренд не существует"));
         Model model = mapModelDTOToModel(modelDTO);
         modelRepository.save(model);
     }

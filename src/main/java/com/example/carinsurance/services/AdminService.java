@@ -1,7 +1,7 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.AdminDTO;
-import com.example.carinsurance.exceptions.UserAuthenticationNotFoundException;
+import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.AdminRepository;
@@ -43,7 +43,7 @@ public class AdminService {
     public Admin mapAdminDTOToAdmin(AdminDTO adminDTO) {
 
         if (userAuthenticationRepository.findByLogin(adminDTO.getLogin()) != null)
-            throw new UserAuthenticationNotFoundException("Пользователь с таким логином уже существует");
+            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
 
         UserAuthentication userAuthentication = new UserAuthentication();
         userAuthentication.setLogin(adminDTO.getLogin());

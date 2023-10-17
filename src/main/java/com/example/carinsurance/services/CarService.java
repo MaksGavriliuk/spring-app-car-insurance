@@ -1,9 +1,9 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.CarDTO;
-import com.example.carinsurance.exceptions.EngineVolumeNotFoundException;
-import com.example.carinsurance.exceptions.FuelTypeNotFoundException;
-import com.example.carinsurance.exceptions.ModelNotFoundException;
+import com.example.carinsurance.exceptions.EngineVolumeException;
+import com.example.carinsurance.exceptions.FuelTypeException;
+import com.example.carinsurance.exceptions.ModelException;
 import com.example.carinsurance.repositories.CarRepository;
 import com.example.carinsurance.models.Car;
 import com.example.carinsurance.repositories.EngineVolumeRepository;
@@ -34,9 +34,9 @@ public class CarService {
 
     public void saveCar(CarDTO carDTO) {
 
-        modelRepository.findById(carDTO.getModelId()).orElseThrow(() -> new ModelNotFoundException("Модель не найдена"));
-        engineVolumeRepository.findById(carDTO.getEngineVolumeId()).orElseThrow(() -> new EngineVolumeNotFoundException("Объём двигателя не найден"));
-        fuelTypeRepository.findById(carDTO.getFuelTypeId()).orElseThrow(() -> new FuelTypeNotFoundException("Тип топлива не найден"));
+        modelRepository.findById(carDTO.getModelId()).orElseThrow(() -> new ModelException("Модель не найдена"));
+        engineVolumeRepository.findById(carDTO.getEngineVolumeId()).orElseThrow(() -> new EngineVolumeException("Объём двигателя не найден"));
+        fuelTypeRepository.findById(carDTO.getFuelTypeId()).orElseThrow(() -> new FuelTypeException("Тип топлива не найден"));
 
         Car car = mapCarDTOToCar(carDTO);
         carRepository.save(car);
