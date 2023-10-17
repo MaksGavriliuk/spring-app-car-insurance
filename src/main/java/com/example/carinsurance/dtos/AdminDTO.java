@@ -8,5 +8,6 @@ public class AdminDTO {
     private String surname;
     private String name;
     private String patronymic;
-    private int userAuthenticationId;
+    private String login;
+    private String password;
 }

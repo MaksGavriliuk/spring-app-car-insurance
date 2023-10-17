@@ -1,8 +1,13 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.dtos.AdminDTO;
+import com.example.carinsurance.exceptions.UserAuthenticationNotFoundException;
 import com.example.carinsurance.models.Admin;
+import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.AdminRepository;
+import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +19,17 @@ public class AdminService {
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private UserAuthenticationRepository userAuthenticationRepository;
+
 
     public List<Admin> listAdmins() {
         return adminRepository.findAll();
+    }
+
+    public void saveAdmin(AdminDTO adminDTO) {
+        Admin admin = mapAdminDTOToAdmin(adminDTO);
+        adminRepository.save(admin);
     }
 
     public void deleteAdmin(int id) {
@@ -25,6 +38,26 @@ public class AdminService {
 
     public Admin getAdminById(int id) {
         return adminRepository.findById(id).orElse(null);
+    }
+
+    public Admin mapAdminDTOToAdmin(AdminDTO adminDTO) {
+
+        if (userAuthenticationRepository.findByLogin(adminDTO.getLogin()) != null)
+            throw new UserAuthenticationNotFoundException("Пользователь с таким логином уже существует");
+
+        UserAuthentication userAuthentication = new UserAuthentication();
+        userAuthentication.setLogin(adminDTO.getLogin());
+        userAuthentication.setPassword(new BCryptPasswordEncoder().encode(adminDTO.getPassword()));
+        userAuthenticationRepository.save(userAuthentication);
+
+        Admin admin = new Admin();
+        admin.setUserAuthentication(userAuthentication);
+        admin.setSurname(adminDTO.getSurname());
+        admin.setName(adminDTO.getName());
+        admin.setPatronymic(adminDTO.getPatronymic());
+
+        return admin;
+
     }
 
 }
