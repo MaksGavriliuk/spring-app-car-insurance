@@ -44,7 +44,7 @@ public class FeedbackService {
     public Feedback mapFeedbackDTOToFeedback(FeedbackDTO feedbackDTO) {
         Feedback feedback = new Feedback();
         feedback.setFeedback(feedbackDTO.getFeedback());
-        feedback.setNumberOfStars(feedback.getNumberOfStars());
+        feedback.setNumberOfStars(feedbackDTO.getNumberOfStars());
         feedback.setUser(userRepository.findById(feedbackDTO.getUserId()).orElse(null));
         return feedback;
     }

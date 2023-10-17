@@ -50,7 +50,7 @@ public class User {
     @Column(name = "experience")
     private int experience;
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Feedback> feedbacks;
 
 }

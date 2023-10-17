@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+
 @Data
 @Entity
 @Table(name = "cars")
@@ -22,7 +23,7 @@ import java.math.BigDecimal;
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
