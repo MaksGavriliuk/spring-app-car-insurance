@@ -21,7 +21,7 @@ public class UserService {
     private UserAuthenticationRepository userAuthenticationRepository;
 
 
-    public List<User> listUsers(){
+    public List<User> listUsers() {
         return userRepository.findAll();
     }
 
@@ -36,7 +36,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User getUserById(int id){
+    public User getUserById(int id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserAuthenticationException("Пользователя с таким логином не существует"));
     }
