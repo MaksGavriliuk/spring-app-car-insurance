@@ -2,7 +2,6 @@ package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.UserDTO;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
-import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.User;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class UserService {

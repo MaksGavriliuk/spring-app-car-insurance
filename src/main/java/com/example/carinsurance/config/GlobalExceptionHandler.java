@@ -1,5 +1,6 @@
 package com.example.carinsurance.config;
 
+import com.example.carinsurance.exceptions.AdminException;
 import com.example.carinsurance.exceptions.BrandException;
 import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.exceptions.FuelTypeException;
@@ -35,6 +36,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<String> handleUserAuthenticationException(UserAuthenticationException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleAdminException(AdminException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
