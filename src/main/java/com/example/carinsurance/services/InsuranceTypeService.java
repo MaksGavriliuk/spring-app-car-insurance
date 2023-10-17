@@ -1,5 +1,6 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.exceptions.InsuranceTypeException;
 import com.example.carinsurance.models.InsuranceType;
 import com.example.carinsurance.repositories.InsuranceTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,8 @@ public class InsuranceTypeService {
 
 
     public InsuranceType getInsuranceTypeById(int id) {
-        return insuranceTypeRepository.findById(id).orElse(null);
+        return insuranceTypeRepository.findById(id)
+                .orElseThrow(() -> new InsuranceTypeException("Тип страховки с таким id не найден"));
     }
 
 }

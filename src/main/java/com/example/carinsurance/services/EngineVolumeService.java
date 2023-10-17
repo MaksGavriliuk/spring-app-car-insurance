@@ -1,5 +1,6 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.models.EngineVolume;
 import com.example.carinsurance.repositories.EngineVolumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class EngineVolumeService {
     }
 
     public EngineVolume getEngineVolumeById(int id) {
-        return engineVolumeRepository.findById(id).orElse(null);
+        return engineVolumeRepository.findById(id)
+                .orElseThrow(() -> new EngineVolumeException("Объём двигателя с таким id не найден"));
     }
 
 }

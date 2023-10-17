@@ -1,5 +1,6 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.exceptions.FuelTypeException;
 import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.repositories.FuelTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ public class FuelTypeService {
     }
 
     public FuelType getFuelTypeById(int id) {
-        return fuelTypeRepository.findById(id).orElse(null);
+        return fuelTypeRepository.findById(id)
+                .orElseThrow(() -> new FuelTypeException("Тип топлива с таким id не найден"));
     }
 
 }
