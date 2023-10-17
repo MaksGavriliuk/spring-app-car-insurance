@@ -2,7 +2,6 @@ package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.dtos.AdminDTO;
 import com.example.carinsurance.models.Admin;
-import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

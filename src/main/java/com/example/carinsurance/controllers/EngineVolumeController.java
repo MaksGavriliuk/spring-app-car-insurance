@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 
-@Slf4j
 @RestController
 @RequestMapping("/engine-volumes")
 public class EngineVolumeController {
