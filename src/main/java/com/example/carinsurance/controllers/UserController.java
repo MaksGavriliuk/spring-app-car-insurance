@@ -1,6 +1,5 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.dtos.AdminDTO;
 import com.example.carinsurance.dtos.UserDTO;
 import com.example.carinsurance.models.User;
 import com.example.carinsurance.services.UserService;
@@ -27,7 +26,7 @@ public class UserController {
 
 
     @GetMapping
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.listUsers();
     }
 

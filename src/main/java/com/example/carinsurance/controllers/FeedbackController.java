@@ -2,7 +2,6 @@ package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.dtos.FeedbackDTO;
 import com.example.carinsurance.models.Feedback;
-import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

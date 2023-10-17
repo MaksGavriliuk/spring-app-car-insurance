@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
 @Data
 @Entity
 @Table(name = "fuel_types")

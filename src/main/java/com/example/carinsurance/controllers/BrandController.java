@@ -3,7 +3,6 @@ package com.example.carinsurance.controllers;
 import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.BrandService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +21,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/brands")
-@Slf4j
 public class BrandController {
 
     @Autowired

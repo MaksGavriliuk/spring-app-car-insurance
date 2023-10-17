@@ -4,14 +4,13 @@ import com.example.carinsurance.dtos.FeedbackDTO;
 import com.example.carinsurance.exceptions.FeedbackException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.Feedback;
-import com.example.carinsurance.models.User;
 import com.example.carinsurance.repositories.FeedbackRepository;
-import com.example.carinsurance.repositories.FuelTypeRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 public class FeedbackService {
