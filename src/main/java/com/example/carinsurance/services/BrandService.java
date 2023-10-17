@@ -33,6 +33,11 @@ public class BrandService {
         brandRepository.deleteById(id);
     }
 
+    public void updateBrand(int id, Brand updateBrand) {
+        updateBrand.setId(id);
+        brandRepository.save(updateBrand);
+    }
+
     public Brand getBrandById(int id) {
         return brandRepository.findById(id).orElse(null);
     }
