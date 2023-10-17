@@ -28,6 +28,8 @@ public class AdminService {
     }
 
     public void saveAdmin(AdminDTO adminDTO) {
+        if (userAuthenticationRepository.findByLogin(adminDTO.getLogin()) != null)
+            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
         Admin admin = mapAdminDTOToAdmin(adminDTO);
         adminRepository.save(admin);
     }
@@ -41,9 +43,6 @@ public class AdminService {
     }
 
     public Admin mapAdminDTOToAdmin(AdminDTO adminDTO) {
-
-        if (userAuthenticationRepository.findByLogin(adminDTO.getLogin()) != null)
-            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
 
         UserAuthentication userAuthentication = new UserAuthentication();
         userAuthentication.setLogin(adminDTO.getLogin());
