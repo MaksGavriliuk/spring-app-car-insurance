@@ -1,5 +1,6 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.exceptions.BrandException;
 import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.Model;
 import com.example.carinsurance.repositories.BrandRepository;
@@ -37,7 +38,8 @@ public class BrandService {
     }
 
     public Brand getBrandById(int id) {
-        return brandRepository.findById(id).orElse(null);
+        return brandRepository.findById(id)
+                .orElseThrow(() -> new BrandException("Бренд с таким id не найден"));
     }
 
     public List<Model> getModelsByBrand(String brandName) {

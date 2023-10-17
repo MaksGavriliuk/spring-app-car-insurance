@@ -1,6 +1,7 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.CarDTO;
+import com.example.carinsurance.exceptions.CarException;
 import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.exceptions.FuelTypeException;
 import com.example.carinsurance.exceptions.ModelException;
@@ -48,7 +49,8 @@ public class CarService {
     }
 
     public Car getCarById(int id) {
-        return carRepository.findById(id).orElse(null);
+        return carRepository.findById(id)
+                .orElseThrow(() -> new CarException("Машина с таким id не найдена"));
     }
 
     public Car mapCarDTOToCar(CarDTO carDTO) {
