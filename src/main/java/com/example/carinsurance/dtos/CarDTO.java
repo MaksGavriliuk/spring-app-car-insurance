@@ -1,7 +1,6 @@
 package com.example.carinsurance.dtos;
 
 import lombok.Data;
-import lombok.Getter;
 
 import java.math.BigDecimal;
 

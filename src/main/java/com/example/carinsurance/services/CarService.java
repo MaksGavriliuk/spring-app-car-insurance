@@ -4,7 +4,6 @@ import com.example.carinsurance.dtos.CarDTO;
 import com.example.carinsurance.exceptions.EngineVolumeNotFoundException;
 import com.example.carinsurance.exceptions.FuelTypeNotFoundException;
 import com.example.carinsurance.exceptions.ModelNotFoundException;
-import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.CarRepository;
 import com.example.carinsurance.models.Car;
 import com.example.carinsurance.repositories.EngineVolumeRepository;

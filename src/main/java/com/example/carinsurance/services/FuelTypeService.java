@@ -32,4 +32,5 @@ public class FuelTypeService {
     public FuelType getFuelTypeById(int id) {
         return fuelTypeRepository.findById(id).orElse(null);
     }
+
 }

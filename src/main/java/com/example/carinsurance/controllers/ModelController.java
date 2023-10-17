@@ -27,8 +27,7 @@ public class ModelController {
 
 
     @GetMapping
-    public List<Model> getModels(
-            @RequestParam(name = "model", required = false) String model) {
+    public List<Model> getModels(@RequestParam(name = "model", required = false) String model) {
         return modelService.listModels(model);
     }
 
