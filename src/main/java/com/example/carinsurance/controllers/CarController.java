@@ -1,5 +1,6 @@
 package com.example.carinsurance.controllers;
 
+import com.example.carinsurance.dtos.CarDTO;
 import com.example.carinsurance.models.Car;
 import com.example.carinsurance.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +32,8 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createCar(
-            @RequestBody Car car,
-            @RequestParam(value = "brand", required = true) String brandName,
-            @RequestParam(value = "model", required = true) String modelName,
-            @RequestParam(value = "engine-volume", required = true) String engineVolume,
-            @RequestParam(value = "fuel-type", required = true) String fuelType
-    ) {
-        carService.saveCar(car, brandName, modelName, engineVolume, fuelType);
+    public ResponseEntity<Void> createCar(@RequestBody CarDTO carDTO) {
+        carService.saveCar(carDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
