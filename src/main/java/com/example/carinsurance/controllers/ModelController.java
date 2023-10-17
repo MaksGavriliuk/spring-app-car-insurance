@@ -1,5 +1,6 @@
 package com.example.carinsurance.controllers;
 
+import com.example.carinsurance.dtos.ModelDTO;
 import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.ModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,8 @@ public class ModelController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createModel(
-            @RequestParam("brand-name") String brandName,
-            @RequestBody Model model) {
-        modelService.saveModel(model, brandName);
+    public ResponseEntity<Void> createModel(@RequestBody ModelDTO modelDTO) {
+        modelService.saveModel(modelDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

@@ -1,5 +1,6 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.dtos.ModelDTO;
 import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
@@ -26,20 +27,16 @@ public class ModelService {
         return modelRepository.findAll();
     }
 
-    public void saveModel(Model model, String brandName) {
-        List<Brand> brands = brandRepository.findByBrand(brandName);
-        Brand brand;
+    public void saveModel(ModelDTO modelDTO) {
 
-        if (brands.isEmpty()) {
-            brand = new Brand();
-            brand.setBrand(brandName);
-            brandRepository.save(brand);
+        Brand brand = brandRepository.findById(modelDTO.getBrandId()).orElse(null);
+
+        if (brand != null) {
+            Model model = mapModelDTOToModel(modelDTO);
+            modelRepository.save(model);
         } else {
-            brand = brands.get(0);
+            throw new NullPointerException("Бренд не существует");
         }
-
-        model.setBrand(brand);
-        modelRepository.save(model);
 
     }
 
@@ -49,6 +46,13 @@ public class ModelService {
 
     public Model getModelById(int id) {
         return modelRepository.findById(id).orElse(null);
+    }
+
+    public Model mapModelDTOToModel(ModelDTO modelDTO) {
+        Model model = new Model();
+        model.setModel(modelDTO.getModel());
+        model.setBrand(brandRepository.findById(modelDTO.getBrandId()).orElseThrow());
+        return model;
     }
 
 }
