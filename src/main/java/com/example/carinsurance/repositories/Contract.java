@@ -1,0 +1,7 @@
+package com.example.carinsurance.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.support.JpaEntityInformation;
+
+public interface Contract extends JpaRepository<Contract, Integer> {
+}
