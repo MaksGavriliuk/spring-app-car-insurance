@@ -3,6 +3,7 @@ package com.example.carinsurance.config;
 import com.example.carinsurance.exceptions.AdminException;
 import com.example.carinsurance.exceptions.BrandException;
 import com.example.carinsurance.exceptions.CarException;
+import com.example.carinsurance.exceptions.ContractException;
 import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.exceptions.FeedbackException;
 import com.example.carinsurance.exceptions.FuelTypeException;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -77,6 +79,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<String> handleInsuranceAgentException(InsuranceAgentException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleContractException(ContractException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
