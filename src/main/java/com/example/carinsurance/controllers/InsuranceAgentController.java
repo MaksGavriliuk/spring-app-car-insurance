@@ -2,12 +2,9 @@ package com.example.carinsurance.controllers;
 
 
 import com.example.carinsurance.dtos.InsuranceAgentDTO;
-import com.example.carinsurance.dtos.UserDTO;
 import com.example.carinsurance.models.InsuranceAgent;
-import com.example.carinsurance.models.User;
 import com.example.carinsurance.services.InsuranceAgentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/agents")
