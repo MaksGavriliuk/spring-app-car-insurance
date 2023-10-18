@@ -15,5 +15,6 @@ public class InsuranceAgentDTO {
     private String sex;
     private int age;
     private BigDecimal profit;
-    private int userAuthenticationId;
+    private String login;
+    private String password;
 }

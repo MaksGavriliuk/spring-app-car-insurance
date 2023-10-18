@@ -6,6 +6,7 @@ import com.example.carinsurance.exceptions.CarException;
 import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.exceptions.FeedbackException;
 import com.example.carinsurance.exceptions.FuelTypeException;
+import com.example.carinsurance.exceptions.InsuranceAgentException;
 import com.example.carinsurance.exceptions.InsuranceTypeException;
 import com.example.carinsurance.exceptions.ModelException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;

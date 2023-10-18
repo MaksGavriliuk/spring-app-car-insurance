@@ -47,6 +47,6 @@ public class InsuranceAgent {
     private int age;
 
     @Column(name = "profit", precision = 10, scale = 2)
-    private BigDecimal experience;
+    private BigDecimal profit;
 
 }
