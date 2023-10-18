@@ -44,10 +44,7 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateBrand(
-            @PathVariable Integer id,
-            @RequestBody Brand updateBrand
-    ) {
+    public ResponseEntity<Void> updateBrand(@PathVariable Integer id, @RequestBody Brand updateBrand) {
         brandService.updateBrand(id, updateBrand);
         return ResponseEntity.ok().build();
     }

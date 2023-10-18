@@ -38,6 +38,13 @@ public class ModelService {
         modelRepository.deleteById(id);
     }
 
+    public void updateModel(int id, ModelDTO modelDTO) {
+        brandRepository.findById(modelDTO.getBrandId()).orElseThrow(() -> new BrandException("Бренд не существует"));
+        Model model = mapModelDTOToModel(modelDTO);
+        model.setId(model.getId());
+        modelRepository.save(model);
+    }
+
     public Model getModelById(int id) {
         return modelRepository.findById(id)
                 .orElseThrow(() -> new ModelException("Модель с таким id не найдена"));
