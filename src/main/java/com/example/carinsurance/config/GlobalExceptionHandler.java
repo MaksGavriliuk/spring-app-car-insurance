@@ -7,6 +7,7 @@ import com.example.carinsurance.exceptions.FeedbackException;
 import com.example.carinsurance.exceptions.FuelTypeException;
 import com.example.carinsurance.exceptions.ModelException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
+import com.example.carinsurance.exceptions.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
