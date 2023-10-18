@@ -2,9 +2,11 @@ package com.example.carinsurance.config;
 
 import com.example.carinsurance.exceptions.AdminException;
 import com.example.carinsurance.exceptions.BrandException;
+import com.example.carinsurance.exceptions.CarException;
 import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.exceptions.FeedbackException;
 import com.example.carinsurance.exceptions.FuelTypeException;
+import com.example.carinsurance.exceptions.InsuranceTypeException;
 import com.example.carinsurance.exceptions.ModelException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.exceptions.UserCarException;
@@ -13,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -60,6 +61,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<String> handleUserCarException(UserCarException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleCarException(CarException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleInsuranceTypeException(InsuranceTypeException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
