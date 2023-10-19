@@ -30,16 +30,32 @@ public class UserCarService {
     }
 
     public void saveUserCar(UserCarDTO userCarDTO) {
+
         userRepository.findById(userCarDTO.getUserId())
                 .orElseThrow(() -> new UserException("Пользователя с таким id не существует"));
         carRepository.findById(userCarDTO.getCarId())
                 .orElseThrow(() -> new CarException("Машины с таким id не существует"));
+
         UserCar userCar = mapUserCarDTOToUserCar(userCarDTO);
         userCarRepository.save(userCar);
+
     }
 
     public void deleteUserCar(int id){
         userCarRepository.deleteById(id);
+    }
+
+    public void updateUserCar(int id, UserCarDTO userCarDTO) {
+
+        userRepository.findById(userCarDTO.getUserId())
+                .orElseThrow(() -> new UserException("Пользователя с таким id не существует"));
+        carRepository.findById(userCarDTO.getCarId())
+                .orElseThrow(() -> new CarException("Машины с таким id не существует"));
+
+        UserCar userCar = mapUserCarDTOToUserCar(userCarDTO);
+        userCar.setId(id);
+        userCarRepository.save(userCar);
+
     }
 
     public UserCar getUserCarById(int id){
