@@ -22,12 +22,22 @@ public class UserAuthenticationService {
     }
 
     public void saveUserAuthentication(UserAuthentication userAuthentication) {
+        if (userAuthenticationRepository.findByLogin(userAuthentication.getLogin()) != null)
+            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
         userAuthentication.setPassword(new BCryptPasswordEncoder().encode(userAuthentication.getPassword()));
         userAuthenticationRepository.save(userAuthentication);
     }
 
     public void deleteUserAuthentication(Integer id) {
         userAuthenticationRepository.deleteById(id);
+    }
+
+    public void updateUserAuthentication(int id, UserAuthentication userAuthentication) {
+        UserAuthentication checkUser = userAuthenticationRepository.findByLogin(userAuthentication.getLogin());
+        if (checkUser != null && checkUser.getId() != id)
+            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+        userAuthentication.setId(id);
+        userAuthenticationRepository.save(userAuthentication);
     }
 
     public UserAuthentication getUserAuthenticationById(Integer id) {
