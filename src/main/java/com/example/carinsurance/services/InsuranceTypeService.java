@@ -28,6 +28,10 @@ public class InsuranceTypeService {
         insuranceTypeRepository.deleteById(id);
     }
 
+    public void updateInsuranceType(int id, InsuranceType insuranceType) {
+        insuranceType.setId(id);
+        insuranceTypeRepository.save(insuranceType);
+    }
 
     public InsuranceType getInsuranceTypeById(int id) {
         return insuranceTypeRepository.findById(id)
