@@ -34,18 +34,36 @@ public class ContractService {
     }
 
     public void saveContract(ContractDTO contractDTO) {
+
         insuranceAgentRepository.findById(contractDTO.getInsuranceAgentId())
                 .orElseThrow(() -> new InsuranceAgentException("Страхового агента с таким id не существует"));
         insuranceTypeRepository.findById(contractDTO.getInsuranceTypeId())
                 .orElseThrow(() -> new InsuranceTypeException("Типа страховки с таким id не существует"));
         userCarRepository.findById(contractDTO.getUserCarId())
                 .orElseThrow(() -> new UserCarException("Связи машина-пользователь с таким id не существует"));
+
         Contract contract = mapContractDTOToContract(contractDTO);
         contractRepository.save(contract);
+
     }
 
     public void deleteContract(int id) {
         contractRepository.deleteById(id);
+    }
+
+    public void updateContract(int id, ContractDTO contractDTO) {
+
+        insuranceAgentRepository.findById(contractDTO.getInsuranceAgentId())
+                .orElseThrow(() -> new InsuranceAgentException("Страхового агента с таким id не существует"));
+        insuranceTypeRepository.findById(contractDTO.getInsuranceTypeId())
+                .orElseThrow(() -> new InsuranceTypeException("Типа страховки с таким id не существует"));
+        userCarRepository.findById(contractDTO.getUserCarId())
+                .orElseThrow(() -> new UserCarException("Связи машина-пользователь с таким id не существует"));
+
+        Contract contract = mapContractDTOToContract(contractDTO);
+        contract.setId(id);
+        contractRepository.save(contract);
+
     }
 
     public Contract getContractById(int id) {
