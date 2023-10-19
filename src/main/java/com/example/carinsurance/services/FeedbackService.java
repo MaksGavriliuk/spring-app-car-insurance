@@ -36,6 +36,17 @@ public class FeedbackService {
         feedbackRepository.deleteById(id);
     }
 
+    public void updateFeedback(int id, FeedbackDTO feedbackDTO) {
+
+        userRepository.findById(feedbackDTO.getUserId())
+                .orElseThrow(() -> new UserAuthenticationException("Пользователя с таким id не существует"));
+
+        Feedback feedback = mapFeedbackDTOToFeedback(feedbackDTO);
+        feedback.setId(id);
+        feedbackRepository.save(feedback);
+
+    }
+
     public Feedback getFeedbackById(int id) {
         return feedbackRepository.findById(id).orElseThrow(() -> new FeedbackException("Отзыва с таким id не существует"));
     }
