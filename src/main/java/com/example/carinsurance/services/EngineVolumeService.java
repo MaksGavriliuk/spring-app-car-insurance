@@ -31,6 +31,11 @@ public class EngineVolumeService {
         engineVolumeRepository.deleteById(id);
     }
 
+    public void updateEngineVolume(int id, EngineVolume engineVolume) {
+        engineVolume.setId(id);
+        engineVolumeRepository.save(engineVolume);
+    }
+
     public EngineVolume getEngineVolumeById(int id) {
         return engineVolumeRepository.findById(id)
                 .orElseThrow(() -> new EngineVolumeException("Объём двигателя с таким id не найден"));

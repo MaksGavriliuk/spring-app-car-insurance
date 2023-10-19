@@ -1,6 +1,5 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.services.FuelTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
