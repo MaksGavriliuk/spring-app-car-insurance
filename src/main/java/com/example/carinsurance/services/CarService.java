@@ -48,6 +48,18 @@ public class CarService {
         carRepository.deleteById(id);
     }
 
+    public void updateCar(int id, CarDTO carDTO) {
+
+        modelRepository.findById(carDTO.getModelId()).orElseThrow(() -> new ModelException("Модель не найдена"));
+        engineVolumeRepository.findById(carDTO.getEngineVolumeId()).orElseThrow(() -> new EngineVolumeException("Объём двигателя не найден"));
+        fuelTypeRepository.findById(carDTO.getFuelTypeId()).orElseThrow(() -> new FuelTypeException("Тип топлива не найден"));
+
+        Car car = mapCarDTOToCar(carDTO);
+        car.setId(id);
+        carRepository.save(car);
+
+    }
+
     public Car getCarById(int id) {
         return carRepository.findById(id)
                 .orElseThrow(() -> new CarException("Машина с таким id не найдена"));
