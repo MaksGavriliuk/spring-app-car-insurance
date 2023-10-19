@@ -1,5 +1,6 @@
 package com.example.carinsurance.controllers;
 
+import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.services.FuelTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class FuelTypeController {
     public ResponseEntity<Void> deleteFuelType(@PathVariable Integer id) {
         fuelTypeService.deleteFuelType(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateFuelType(@PathVariable Integer id, @RequestBody FuelType fuelType) {
+        fuelTypeService.updateFuelType(id, fuelType);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")

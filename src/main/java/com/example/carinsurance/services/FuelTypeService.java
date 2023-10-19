@@ -30,6 +30,11 @@ public class FuelTypeService {
         fuelTypeRepository.deleteById(id);
     }
 
+    public void updateFuelType(int id, FuelType fuelType) {
+        fuelType.setId(id);
+        fuelTypeRepository.save(fuelType);
+    }
+
     public FuelType getFuelTypeById(int id) {
         return fuelTypeRepository.findById(id)
                 .orElseThrow(() -> new FuelTypeException("Тип топлива с таким id не найден"));
