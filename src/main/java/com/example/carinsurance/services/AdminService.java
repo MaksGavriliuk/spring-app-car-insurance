@@ -41,6 +41,21 @@ public class AdminService {
         adminRepository.deleteById(id);
     }
 
+    public void updateAdmin(int id, AdminDTO adminDTO) {
+
+        Admin existingAdmin = adminRepository.findById(id)
+                .orElseThrow(() -> new AdminException("Администратор с таким id не существует"));
+        UserAuthentication userWithNewLogin = userAuthenticationRepository.findByLogin(adminDTO.getLogin());
+
+        if (userWithNewLogin != null && userWithNewLogin.getId() != existingAdmin.getUserAuthentication().getId())
+            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+
+        Admin admin = mapAdminDTOToAdmin(adminDTO);
+        admin.setId(id);
+        adminRepository.save(existingAdmin);
+
+    }
+
     public Admin getAdminById(int id) {
         return adminRepository.findById(id)
                 .orElseThrow(() -> new AdminException("Администратора с таким id не существует"));
