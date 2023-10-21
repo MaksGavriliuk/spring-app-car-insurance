@@ -45,13 +45,27 @@ public class AdminService {
 
         Admin existingAdmin = adminRepository.findById(id)
                 .orElseThrow(() -> new AdminException("Администратор с таким id не существует"));
-        UserAuthentication userWithNewLogin = userAuthenticationRepository.findByLogin(adminDTO.getLogin());
 
-        if (userWithNewLogin != null && userWithNewLogin.getId() != existingAdmin.getUserAuthentication().getId())
-            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+        UserAuthentication userAuthentication = existingAdmin.getUserAuthentication();
 
-        Admin admin = mapAdminDTOToAdmin(adminDTO);
-        admin.setId(id);
+        String login = adminDTO.getLogin();
+        String password = adminDTO.getPassword();
+
+        if (!userAuthentication.getLogin().equals(login)) {
+            if (userAuthenticationRepository.findByLogin(login) != null)
+                throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+            userAuthentication.setLogin(login);
+        }
+        if (!userAuthentication.getPassword().equals(password))
+            userAuthentication.setPassword(password);
+
+        userAuthenticationRepository.save(userAuthentication);
+        existingAdmin.setUserAuthentication(userAuthentication);
+
+        existingAdmin.setSurname(adminDTO.getSurname());
+        existingAdmin.setName(adminDTO.getName());
+        existingAdmin.setPatronymic(adminDTO.getPatronymic());
+
         adminRepository.save(existingAdmin);
 
     }
