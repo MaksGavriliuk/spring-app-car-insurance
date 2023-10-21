@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 @Data
@@ -48,5 +50,8 @@ public class InsuranceAgent {
 
     @Column(name = "profit", precision = 10, scale = 2)
     private BigDecimal profit;
+
+    @OneToMany(mappedBy = "insuranceAgent")
+    private List<Contract> contracts;
 
 }
