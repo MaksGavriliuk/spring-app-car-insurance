@@ -1,7 +1,10 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.UserDTO;
+import com.example.carinsurance.exceptions.AdminException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
+import com.example.carinsurance.exceptions.UserException;
+import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.User;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
@@ -34,6 +37,35 @@ public class UserService {
 
     public void deleteUser(int id) {
         userRepository.deleteById(id);
+    }
+
+    public void updateUser(int id, UserDTO userDTO) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserException("Пользователя с таким id не существует"));
+
+        UserAuthentication userAuthentication = user.getUserAuthentication();
+
+        String login = userDTO.getLogin();
+        String password = userDTO.getPassword();
+
+        if (!userAuthentication.getLogin().equals(login)) {
+            if (userAuthenticationRepository.findByLogin(login) != null)
+                throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+            userAuthentication.setLogin(login);
+        }
+        if (!userAuthentication.getPassword().equals(password))
+            userAuthentication.setPassword(password);
+
+        userAuthenticationRepository.save(userAuthentication);
+        user.setUserAuthentication(userAuthentication);
+
+        user.setSurname(userDTO.getSurname());
+        user.setName(userDTO.getName());
+        user.setPatronymic(userDTO.getPatronymic());
+
+        userRepository.save(user);
+
     }
 
     public User getUserById(int id) {
