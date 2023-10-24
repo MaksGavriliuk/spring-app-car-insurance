@@ -29,10 +29,15 @@ public class UserService {
     }
 
     public void saveUser(UserDTO userDTO) {
-        if (userAuthenticationRepository.findByLogin(userDTO.getLogin()) != null)
+
+        if (userAuthenticationRepository.findByLogin(userDTO.getUserAuthentication().getLogin()) != null)
             throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+
+        userAuthenticationRepository.save(userDTO.getUserAuthentication());
+
         User user = mapUserDTOToUser(userDTO);
         userRepository.save(user);
+
     }
 
     public void deleteUser(int id) {
@@ -46,8 +51,8 @@ public class UserService {
 
         UserAuthentication userAuthentication = user.getUserAuthentication();
 
-        String login = userDTO.getLogin();
-        String password = userDTO.getPassword();
+        String login = userDTO.getUserAuthentication().getLogin();
+        String password = userDTO.getUserAuthentication().getPassword();
 
         if (!userAuthentication.getLogin().equals(login)) {
             if (userAuthenticationRepository.findByLogin(login) != null)
@@ -75,13 +80,8 @@ public class UserService {
 
     public User mapUserDTOToUser(UserDTO userDTO) {
 
-        UserAuthentication userAuthentication = new UserAuthentication();
-        userAuthentication.setLogin(userDTO.getLogin());
-        userAuthentication.setPassword(userDTO.getPassword());
-        userAuthenticationRepository.save(userAuthentication);
-
         User user = new User();
-        user.setUserAuthentication(userAuthentication);
+        user.setUserAuthentication(userDTO.getUserAuthentication());
         user.setSurname(userDTO.getSurname());
         user.setName(userDTO.getName());
         user.setPatronymic(userDTO.getPatronymic());
