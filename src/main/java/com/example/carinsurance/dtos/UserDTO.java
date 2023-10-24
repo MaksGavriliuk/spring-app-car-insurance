@@ -1,5 +1,6 @@
 package com.example.carinsurance.dtos;
 
+import com.example.carinsurance.models.UserAuthentication;
 import lombok.Data;
 
 @Data
@@ -11,6 +12,5 @@ public class UserDTO {
     private String sex;
     private int age;
     private int experience;
-    private String login;
-    private String password;
+    private UserAuthentication userAuthentication;
 }
