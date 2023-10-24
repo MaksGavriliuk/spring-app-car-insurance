@@ -29,10 +29,15 @@ public class AdminService {
     }
 
     public void saveAdmin(AdminDTO adminDTO) {
-        if (userAuthenticationRepository.findByLogin(adminDTO.getLogin()) != null)
+
+        if (userAuthenticationRepository.findByLogin(adminDTO.getUserAuthentication().getLogin()) != null)
             throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+
+        userAuthenticationRepository.save(adminDTO.getUserAuthentication());
+
         Admin admin = mapAdminDTOToAdmin(adminDTO);
         adminRepository.save(admin);
+
     }
 
     public void deleteAdmin(int id) {
@@ -48,8 +53,8 @@ public class AdminService {
 
         UserAuthentication userAuthentication = existingAdmin.getUserAuthentication();
 
-        String login = adminDTO.getLogin();
-        String password = adminDTO.getPassword();
+        String login = adminDTO.getUserAuthentication().getLogin();
+        String password = adminDTO.getUserAuthentication().getPassword();
 
         if (!userAuthentication.getLogin().equals(login)) {
             if (userAuthenticationRepository.findByLogin(login) != null)
@@ -77,13 +82,8 @@ public class AdminService {
 
     public Admin mapAdminDTOToAdmin(AdminDTO adminDTO) {
 
-        UserAuthentication userAuthentication = new UserAuthentication();
-        userAuthentication.setLogin(adminDTO.getLogin());
-        userAuthentication.setPassword(new BCryptPasswordEncoder().encode(adminDTO.getPassword()));
-        userAuthenticationRepository.save(userAuthentication);
-
         Admin admin = new Admin();
-        admin.setUserAuthentication(userAuthentication);
+        admin.setUserAuthentication(adminDTO.getUserAuthentication());
         admin.setSurname(adminDTO.getSurname());
         admin.setName(adminDTO.getName());
         admin.setPatronymic(adminDTO.getPatronymic());
