@@ -26,10 +26,15 @@ public class InsuranceAgentService {
     }
 
     public void saveInsuranceAgent(InsuranceAgentDTO insuranceAgentDTO) {
-        if (userAuthenticationRepository.findByLogin(insuranceAgentDTO.getLogin()) != null)
+
+        if (userAuthenticationRepository.findByLogin(insuranceAgentDTO.getUserAuthentication().getLogin()) != null)
             throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+
+        userAuthenticationRepository.save(insuranceAgentDTO.getUserAuthentication());
+
         InsuranceAgent insuranceAgent = mapInsuranceAgentDTOToInsuranceAgent(insuranceAgentDTO);
         insuranceAgentRepository.save(insuranceAgent);
+
     }
 
     public void deleteInsuranceAgent(int id) {
@@ -43,13 +48,8 @@ public class InsuranceAgentService {
 
     public InsuranceAgent mapInsuranceAgentDTOToInsuranceAgent(InsuranceAgentDTO insuranceAgentDTO) {
 
-        UserAuthentication userAuthentication = new UserAuthentication();
-        userAuthentication.setLogin(insuranceAgentDTO.getLogin());
-        userAuthentication.setPassword(insuranceAgentDTO.getPassword());
-        userAuthenticationRepository.save(userAuthentication);
-
         InsuranceAgent insuranceAgent = new InsuranceAgent();
-        insuranceAgent.setUserAuthentication(userAuthentication);
+        insuranceAgent.setUserAuthentication(insuranceAgentDTO.getUserAuthentication());
         insuranceAgent.setSurname(insuranceAgentDTO.getSurname());
         insuranceAgent.setName(insuranceAgentDTO.getName());
         insuranceAgent.setPatronymic(insuranceAgentDTO.getPatronymic());
@@ -59,6 +59,5 @@ public class InsuranceAgentService {
         return insuranceAgent;
 
     }
-
 
 }
