@@ -1,6 +1,7 @@
 package com.example.carinsurance.dtos;
 
 
+import com.example.carinsurance.models.UserAuthentication;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -15,6 +16,5 @@ public class InsuranceAgentDTO {
     private String sex;
     private int age;
     private BigDecimal profit;
-    private String login;
-    private String password;
+    private UserAuthentication userAuthentication;
 }
