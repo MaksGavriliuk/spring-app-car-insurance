@@ -3,7 +3,7 @@ package com.example.carinsurance.controllers;
 import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.BrandService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +21,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/brands")
+@RequiredArgsConstructor
 public class BrandController {
 
-    @Autowired
-    private BrandService brandService;
+    private final BrandService brandService;
 
     @GetMapping
     public List<Brand> getBrands(@RequestParam(name = "brand", required = false) String brand) {

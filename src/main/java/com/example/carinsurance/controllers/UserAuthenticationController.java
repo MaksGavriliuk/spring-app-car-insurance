@@ -1,10 +1,8 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.services.UserAuthenticationService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +21,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auths")
-@Slf4j
+@RequiredArgsConstructor
 public class UserAuthenticationController {
 
-    @Autowired
-    private UserAuthenticationService userAuthenticationService;
+    private final UserAuthenticationService userAuthenticationService;
 
 
     @GetMapping

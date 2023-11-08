@@ -1,9 +1,8 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.models.InsuranceType;
 import com.example.carinsurance.services.InsuranceTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,10 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ins-types")
+@RequiredArgsConstructor
 public class InsuranceTypeController {
 
-    @Autowired
-    private InsuranceTypeService insuranceTypeService;
+    private final InsuranceTypeService insuranceTypeService;
 
 
     @GetMapping

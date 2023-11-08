@@ -4,7 +4,7 @@ package com.example.carinsurance.controllers;
 import com.example.carinsurance.dtos.InsuranceAgentDTO;
 import com.example.carinsurance.models.InsuranceAgent;
 import com.example.carinsurance.services.InsuranceAgentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,10 +20,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/agents")
+@RequiredArgsConstructor
 public class InsuranceAgentController {
 
-    @Autowired
-    private InsuranceAgentService insuranceAgentService;
+    private final InsuranceAgentService insuranceAgentService;
 
 
     @GetMapping

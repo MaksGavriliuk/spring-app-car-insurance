@@ -3,7 +3,7 @@ package com.example.carinsurance.controllers;
 import com.example.carinsurance.dtos.ModelDTO;
 import com.example.carinsurance.models.Model;
 import com.example.carinsurance.services.ModelService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +21,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/models")
+@RequiredArgsConstructor
 public class ModelController {
 
-    @Autowired
-    private ModelService modelService;
+    private final ModelService modelService;
 
 
     @GetMapping

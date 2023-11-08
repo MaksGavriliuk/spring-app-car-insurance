@@ -1,9 +1,8 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.models.Brand;
 import com.example.carinsurance.models.EngineVolume;
 import com.example.carinsurance.services.EngineVolumeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,10 +21,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/engine-volumes")
+@RequiredArgsConstructor
 public class EngineVolumeController {
 
-    @Autowired
-    private EngineVolumeService engineVolumeService;
+    private final EngineVolumeService engineVolumeService;
 
 
     @GetMapping

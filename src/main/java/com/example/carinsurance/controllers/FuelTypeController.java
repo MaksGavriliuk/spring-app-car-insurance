@@ -2,7 +2,7 @@ package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.services.FuelTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/fuel-types")
+@RequiredArgsConstructor
 public class FuelTypeController {
 
-    @Autowired
-    private FuelTypeService fuelTypeService;
+    private final FuelTypeService fuelTypeService;
 
 
     @GetMapping

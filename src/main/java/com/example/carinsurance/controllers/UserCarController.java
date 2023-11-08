@@ -1,10 +1,9 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.dtos.ModelDTO;
 import com.example.carinsurance.dtos.UserCarDTO;
 import com.example.carinsurance.models.UserCar;
 import com.example.carinsurance.services.UserCarService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +20,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user-cars")
+@RequiredArgsConstructor
 public class UserCarController {
 
-    @Autowired
-    private UserCarService userCarService;
+    private final UserCarService userCarService;
 
 
     @GetMapping

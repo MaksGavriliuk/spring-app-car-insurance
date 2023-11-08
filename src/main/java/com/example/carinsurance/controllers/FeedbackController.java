@@ -1,10 +1,9 @@
 package com.example.carinsurance.controllers;
 
-import com.example.carinsurance.dtos.CarDTO;
 import com.example.carinsurance.dtos.FeedbackDTO;
 import com.example.carinsurance.models.Feedback;
 import com.example.carinsurance.services.FeedbackService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,10 +19,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/feedbacks")
+@RequiredArgsConstructor
 public class FeedbackController {
 
-    @Autowired
-    private FeedbackService feedbackService;
+    private final FeedbackService feedbackService;
 
 
     @GetMapping
