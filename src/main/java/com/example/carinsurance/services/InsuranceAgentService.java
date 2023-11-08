@@ -3,22 +3,20 @@ package com.example.carinsurance.services;
 import com.example.carinsurance.dtos.InsuranceAgentDTO;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.InsuranceAgent;
-import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.InsuranceAgentRepository;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class InsuranceAgentService {
 
-    @Autowired
-    private InsuranceAgentRepository insuranceAgentRepository;
-    @Autowired
-    private UserAuthenticationRepository userAuthenticationRepository;
+    private final InsuranceAgentRepository insuranceAgentRepository;
+    private final UserAuthenticationRepository userAuthenticationRepository;
 
 
     public List<InsuranceAgent> listInsuranceAgents() {

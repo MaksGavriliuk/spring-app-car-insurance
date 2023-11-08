@@ -10,23 +10,20 @@ import com.example.carinsurance.repositories.ContractRepository;
 import com.example.carinsurance.repositories.InsuranceAgentRepository;
 import com.example.carinsurance.repositories.InsuranceTypeRepository;
 import com.example.carinsurance.repositories.UserCarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class ContractService {
 
-    @Autowired
-    private ContractRepository contractRepository;
-    @Autowired
-    private InsuranceAgentRepository insuranceAgentRepository;
-    @Autowired
-    private InsuranceTypeRepository insuranceTypeRepository;
-    @Autowired
-    private UserCarRepository userCarRepository;
+    private final ContractRepository contractRepository;
+    private final InsuranceAgentRepository insuranceAgentRepository;
+    private final InsuranceTypeRepository insuranceTypeRepository;
+    private final UserCarRepository userCarRepository;
 
 
     public List<Contract> listContracts() {

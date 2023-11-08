@@ -3,17 +3,17 @@ package com.example.carinsurance.services;
 import com.example.carinsurance.exceptions.FuelTypeException;
 import com.example.carinsurance.models.FuelType;
 import com.example.carinsurance.repositories.FuelTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class FuelTypeService {
 
-    @Autowired
-    private FuelTypeRepository fuelTypeRepository;
+    private final FuelTypeRepository fuelTypeRepository;
 
 
     public List<FuelType> listFuelTypes(String fuelType) {

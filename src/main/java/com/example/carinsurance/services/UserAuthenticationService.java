@@ -3,7 +3,7 @@ package com.example.carinsurance.services;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserAuthenticationService {
 
-    @Autowired
-    private UserAuthenticationRepository userAuthenticationRepository;
+    private final UserAuthenticationRepository userAuthenticationRepository;
 
 
     public List<UserAuthentication> listUserAuthentications() {

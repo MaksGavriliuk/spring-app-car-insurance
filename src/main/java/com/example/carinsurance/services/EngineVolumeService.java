@@ -3,7 +3,7 @@ package com.example.carinsurance.services;
 import com.example.carinsurance.exceptions.EngineVolumeException;
 import com.example.carinsurance.models.EngineVolume;
 import com.example.carinsurance.repositories.EngineVolumeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,10 +11,10 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class EngineVolumeService {
 
-    @Autowired
-    private EngineVolumeRepository engineVolumeRepository;
+    private final EngineVolumeRepository engineVolumeRepository;
 
 
     public List<EngineVolume> listEngineVolumes(BigDecimal engineVolume) {

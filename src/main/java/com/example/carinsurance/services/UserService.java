@@ -1,27 +1,24 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.UserDTO;
-import com.example.carinsurance.exceptions.AdminException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.exceptions.UserException;
-import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.User;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserAuthenticationRepository userAuthenticationRepository;
+    private final UserRepository userRepository;
+    private final UserAuthenticationRepository userAuthenticationRepository;
 
 
     public List<User> listUsers() {

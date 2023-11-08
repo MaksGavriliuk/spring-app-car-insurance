@@ -10,23 +10,20 @@ import com.example.carinsurance.models.Car;
 import com.example.carinsurance.repositories.EngineVolumeRepository;
 import com.example.carinsurance.repositories.FuelTypeRepository;
 import com.example.carinsurance.repositories.ModelRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class CarService {
 
-    @Autowired
-    private ModelRepository modelRepository;
-    @Autowired
-    private EngineVolumeRepository engineVolumeRepository;
-    @Autowired
-    private FuelTypeRepository fuelTypeRepository;
-    @Autowired
-    private CarRepository carRepository;
+    private final ModelRepository modelRepository;
+    private final EngineVolumeRepository engineVolumeRepository;
+    private final FuelTypeRepository fuelTypeRepository;
+    private final CarRepository carRepository;
 
 
     public List<Car> listCars() {

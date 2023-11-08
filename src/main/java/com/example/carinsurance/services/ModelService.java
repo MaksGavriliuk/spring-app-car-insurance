@@ -6,19 +6,18 @@ import com.example.carinsurance.exceptions.ModelException;
 import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class ModelService {
 
-    @Autowired
-    private ModelRepository modelRepository;
-    @Autowired
-    private BrandRepository brandRepository;
+    private final ModelRepository modelRepository;
+    private final BrandRepository brandRepository;
 
 
     public List<Model> listModels(String modelName) {

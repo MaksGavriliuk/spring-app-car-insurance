@@ -7,21 +7,18 @@ import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.AdminRepository;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class AdminService {
 
-    @Autowired
-    private AdminRepository adminRepository;
-
-    @Autowired
-    private UserAuthenticationRepository userAuthenticationRepository;
+    private final AdminRepository adminRepository;
+    private final UserAuthenticationRepository userAuthenticationRepository;
 
 
     public List<Admin> listAdmins() {

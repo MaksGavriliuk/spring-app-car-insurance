@@ -3,17 +3,17 @@ package com.example.carinsurance.services;
 import com.example.carinsurance.exceptions.InsuranceTypeException;
 import com.example.carinsurance.models.InsuranceType;
 import com.example.carinsurance.repositories.InsuranceTypeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class InsuranceTypeService {
 
-    @Autowired
-    private InsuranceTypeRepository insuranceTypeRepository;
+    private final InsuranceTypeRepository insuranceTypeRepository;
 
 
     public List<InsuranceType> listInsuranceTypes() {

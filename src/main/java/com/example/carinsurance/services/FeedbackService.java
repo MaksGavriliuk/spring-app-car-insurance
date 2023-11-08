@@ -6,19 +6,18 @@ import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.Feedback;
 import com.example.carinsurance.repositories.FeedbackRepository;
 import com.example.carinsurance.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class FeedbackService {
 
-    @Autowired
-    private FeedbackRepository feedbackRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final FeedbackRepository feedbackRepository;
+    private final UserRepository userRepository;
 
 
     public List<Feedback> listFeedbacks() {
