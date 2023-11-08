@@ -55,4 +55,9 @@ public class ModelController {
         return modelService.getModelById(id);
     }
 
+    @GetMapping("/pages/{page}")
+    public List<Model> get(@PathVariable(name = "page") int page) {
+        return modelService.getModelPagination(page, 2).getContent();
+    }
+
 }

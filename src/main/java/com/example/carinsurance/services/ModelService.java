@@ -7,6 +7,9 @@ import com.example.carinsurance.repositories.BrandRepository;
 import com.example.carinsurance.repositories.ModelRepository;
 import com.example.carinsurance.models.Model;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,6 +57,11 @@ public class ModelService {
         model.setModel(modelDTO.getModel());
         model.setBrand(brandRepository.findById(modelDTO.getBrandId()).orElseThrow());
         return model;
+    }
+
+    public Page<Model> getModelPagination(Integer pageNumber, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        return modelRepository.findAll(pageable);
     }
 
 }
