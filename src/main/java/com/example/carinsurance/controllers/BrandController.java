@@ -32,9 +32,9 @@ public class BrandController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createBrand(@RequestBody Brand brand) {
+    public ResponseEntity<Brand> createBrand(@RequestBody Brand brand) {
         brandService.saveBrand(brand);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(brand);
     }
 
     @DeleteMapping("/{id}")
