@@ -24,9 +24,9 @@ public class FuelTypeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createFuelType(@RequestBody FuelType fuelType) {
+    public ResponseEntity<FuelType> createFuelType(@RequestBody FuelType fuelType) {
         fuelTypeService.saveFuelType(fuelType);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(fuelType);
     }
 
     @DeleteMapping("/{id}")
