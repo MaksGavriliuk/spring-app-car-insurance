@@ -33,9 +33,9 @@ public class EngineVolumeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createEngineVolume(@RequestBody EngineVolume engineVolume) {
+    public ResponseEntity<EngineVolume> createEngineVolume(@RequestBody EngineVolume engineVolume) {
         engineVolumeService.saveEngineVolume(engineVolume);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(engineVolume);
     }
 
     @DeleteMapping("/{id}")
