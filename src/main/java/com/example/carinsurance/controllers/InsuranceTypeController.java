@@ -31,9 +31,9 @@ public class InsuranceTypeController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createInsuranceType(@RequestBody InsuranceType insuranceType) {
+    public ResponseEntity<InsuranceType> createInsuranceType(@RequestBody InsuranceType insuranceType) {
         insuranceTypeService.saveInsuranceType(insuranceType);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(insuranceType);
     }
 
     @DeleteMapping("/{id}")
