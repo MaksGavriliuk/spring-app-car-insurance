@@ -1,18 +1,5 @@
-package com.example.carinsurance.config;
+package com.example.carinsurance.exceptions;
 
-import com.example.carinsurance.exceptions.AdminException;
-import com.example.carinsurance.exceptions.BrandException;
-import com.example.carinsurance.exceptions.CarException;
-import com.example.carinsurance.exceptions.ContractException;
-import com.example.carinsurance.exceptions.EngineVolumeException;
-import com.example.carinsurance.exceptions.FeedbackException;
-import com.example.carinsurance.exceptions.FuelTypeException;
-import com.example.carinsurance.exceptions.InsuranceAgentException;
-import com.example.carinsurance.exceptions.InsuranceTypeException;
-import com.example.carinsurance.exceptions.ModelException;
-import com.example.carinsurance.exceptions.UserAuthenticationException;
-import com.example.carinsurance.exceptions.UserCarException;
-import com.example.carinsurance.exceptions.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
