@@ -31,7 +31,7 @@ public class Model {
     @Column(name = "model")
     private String model;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
