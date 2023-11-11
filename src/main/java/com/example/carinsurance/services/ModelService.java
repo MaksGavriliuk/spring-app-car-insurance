@@ -40,11 +40,12 @@ public class ModelService {
         modelRepository.deleteById(id);
     }
 
-    public void updateModel(int id, ModelDTO modelDTO) {
+    public Model updateModel(int id, ModelDTO modelDTO) {
         brandRepository.findById(modelDTO.getBrandId()).orElseThrow(() -> new BrandException("Бренд не существует"));
         Model model = mapModelDTOToModel(modelDTO);
-        model.setId(model.getId());
+        model.setId(modelDTO.getId());
         modelRepository.save(model);
+        return model;
     }
 
     public Model getModelById(int id) {
