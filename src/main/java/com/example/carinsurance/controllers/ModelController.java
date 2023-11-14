@@ -45,9 +45,9 @@ public class ModelController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateModel(@PathVariable Integer id, @RequestBody ModelDTO modelDTO) {
-        modelService.updateModel(id, modelDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Model> updateModel(@PathVariable Integer id, @RequestBody ModelDTO modelDTO) {
+        Model model = modelService.updateModel(id, modelDTO);
+        return ResponseEntity.ok().body(model);
     }
 
     @GetMapping("/{id}")
