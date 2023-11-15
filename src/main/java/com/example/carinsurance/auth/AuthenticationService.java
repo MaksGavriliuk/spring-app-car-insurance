@@ -8,7 +8,6 @@ import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import com.example.carinsurance.models.User;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
