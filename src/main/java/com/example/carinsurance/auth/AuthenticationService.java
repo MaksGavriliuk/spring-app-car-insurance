@@ -2,7 +2,7 @@ package com.example.carinsurance.auth;
 
 
 import com.example.carinsurance.config.JwtService;
-import com.example.carinsurance.models.Role;
+import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
@@ -24,20 +24,25 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        if (userAuthenticationRepository.findByLogin(request.getUserAuthentication().getLogin()) != null)
+            throw new UserAuthenticationException("Пользователь с таким логином уже существует");
+
+        var userAuth =  new UserAuthentication(
+                request.getUserAuthentication().getLogin(),
+                passwordEncoder.encode(request.getUserAuthentication().getPassword())
+        );
+
         var user = User.builder()
                 .surname(request.getSurname())
                 .name(request.getName())
                 .patronymic(request.getPatronymic())
                 .sex(request.getSex())
                 .experience(request.getExperience())
-                .userAuthentication(
-                        new UserAuthentication(
-                                request.getUserAuthentication().getLogin(),
-                                passwordEncoder.encode(request.getUserAuthentication().getPassword())
-                        )
-                )
-                .role(Role.USER)
+                .userAuthentication(userAuth)
                 .build();
+
+        userAuthenticationRepository.save(userAuth);
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
