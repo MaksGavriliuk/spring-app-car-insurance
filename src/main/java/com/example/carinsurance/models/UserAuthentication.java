@@ -9,13 +9,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Data
 @Entity
 @Table(name = "user_authentications")
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserAuthentication {
 
     @Id
@@ -32,13 +37,20 @@ public class UserAuthentication {
     @OneToOne(mappedBy = "userAuthentication", cascade = CascadeType.ALL)
     private Admin admin;
 
+    public UserAuthentication(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public void setPassword(String password) {
         this.password = new BCryptPasswordEncoder().encode(password);
     }
 
-    public boolean isPasswordValid(String password) {
-        return new BCryptPasswordEncoder().matches(password, this.password);
-    }
+
+
+
+//    public boolean isPasswordValid(String password) {
+//        return new BCryptPasswordEncoder().matches(password, this.password);
+//    }
 
 }

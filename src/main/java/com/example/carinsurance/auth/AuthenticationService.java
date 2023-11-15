@@ -3,6 +3,7 @@ package com.example.carinsurance.auth;
 
 import com.example.carinsurance.config.JwtService;
 import com.example.carinsurance.models.Role;
+import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import com.example.carinsurance.models.User;
@@ -27,7 +28,12 @@ public class AuthenticationService {
                 .patronymic(request.getPatronymic())
                 .sex(request.getSex())
                 .experience(request.getExperience())
-                .userAuthentication(request.getUserAuthentication())
+                .userAuthentication(
+                        new UserAuthentication(
+                                request.getUserAuthentication().getLogin(),
+                                passwordEncoder.encode(request.getUserAuthentication().getPassword())
+                        )
+                )
                 .role(Role.USER)
                 .build();
         userRepository.save(user);
