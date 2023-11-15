@@ -12,8 +12,6 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Data
@@ -41,16 +39,5 @@ public class UserAuthentication {
         this.login = login;
         this.password = password;
     }
-
-    public void setPassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
-    }
-
-
-
-
-//    public boolean isPasswordValid(String password) {
-//        return new BCryptPasswordEncoder().matches(password, this.password);
-//    }
 
 }

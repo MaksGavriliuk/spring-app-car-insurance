@@ -24,7 +24,7 @@ public class UserAuthenticationService {
     public void saveUserAuthentication(UserAuthentication userAuthentication) {
         if (userAuthenticationRepository.findByLogin(userAuthentication.getLogin()) != null)
             throw new UserAuthenticationException("Пользователь с таким логином уже существует");
-        userAuthentication.setPassword(new BCryptPasswordEncoder().encode(userAuthentication.getPassword()));
+        userAuthentication.setPassword(userAuthentication.getPassword());
         userAuthenticationRepository.save(userAuthentication);
     }
 

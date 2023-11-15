@@ -8,11 +8,15 @@ import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import com.example.carinsurance.models.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -28,7 +32,7 @@ public class AuthenticationService {
         if (userAuthenticationRepository.findByLogin(request.getUserAuthentication().getLogin()) != null)
             throw new UserAuthenticationException("Пользователь с таким логином уже существует");
 
-        var userAuth =  new UserAuthentication(
+        var userAuth = new UserAuthentication(
                 request.getUserAuthentication().getLogin(),
                 passwordEncoder.encode(request.getUserAuthentication().getPassword())
         );
@@ -58,11 +62,11 @@ public class AuthenticationService {
                 )
         );
         var user = userRepository.findByUserAuthentication(
-                userAuthenticationRepository.findByLogin(request.getLogin()))
-                .orElseThrow();
+                userAuthenticationRepository.findByLogin(request.getLogin())).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
+
 }
