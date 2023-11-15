@@ -1,6 +1,7 @@
 package com.example.carinsurance.config;
 
 import com.example.carinsurance.exceptions.UserException;
+import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -19,10 +20,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationConfig {
 
     private final UserRepository userRepository;
+    private final UserAuthenticationRepository userAuthenticationRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return login -> userRepository.findByLogin(login)
+        return login -> userRepository.findByUserAuthentication(userAuthenticationRepository.findByLogin(login))
                 .orElseThrow(() -> new UserException("Пользователь не найден"));
     }
 

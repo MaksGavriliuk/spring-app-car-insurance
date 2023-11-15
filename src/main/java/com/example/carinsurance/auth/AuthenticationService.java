@@ -4,6 +4,7 @@ package com.example.carinsurance.auth;
 import com.example.carinsurance.config.JwtService;
 import com.example.carinsurance.models.Role;
 import com.example.carinsurance.models.UserAuthentication;
+import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import com.example.carinsurance.models.User;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final UserAuthenticationRepository userAuthenticationRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -50,7 +52,9 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByLogin(request.getLogin()).orElseThrow();
+        var user = userRepository.findByUserAuthentication(
+                userAuthenticationRepository.findByLogin(request.getLogin()))
+                .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
