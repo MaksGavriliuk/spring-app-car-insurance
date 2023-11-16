@@ -4,6 +4,8 @@ package com.example.carinsurance.auth;
 import com.example.carinsurance.config.JwtService;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.UserAuthentication;
+import com.example.carinsurance.repositories.AdminRepository;
+import com.example.carinsurance.repositories.InsuranceAgentRepository;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +16,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
     private final UserRepository userRepository;
+    private final InsuranceAgentRepository insuranceAgentRepository;
+    private final AdminRepository adminRepository;
     private final UserAuthenticationRepository userAuthenticationRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -62,13 +66,32 @@ public class AuthenticationService {
                 )
         );
 
-        var user = userRepository.findByUserAuthentication(
-                userAuthenticationRepository.findByLogin(request.getLogin())).orElseThrow();
+        String jwtToken, role;
 
-        var jwtToken = jwtService.generateToken(user);
+        var user = userRepository.findByUserAuthentication(
+                userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
+        if (user != null) {
+            jwtToken = jwtService.generateToken(user);
+            role = "user";
+        }
+        else {
+            var insuranceAgent = insuranceAgentRepository.findByUserAuthentication(
+                    userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
+            if (insuranceAgent != null) {
+                jwtToken = jwtService.generateToken(insuranceAgent);
+                role = "insurance_agent";
+            }
+            else {
+                var admin = adminRepository.findByUserAuthentication(
+                        userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
+                jwtToken = jwtService.generateToken(admin);
+                role = "admin";
+            }
+        }
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .role(role)
                 .build();
 
     }
