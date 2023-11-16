@@ -50,21 +50,27 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getLogin(),
                         request.getPassword()
                 )
         );
+
         var user = userRepository.findByUserAuthentication(
                 userAuthenticationRepository.findByLogin(request.getLogin())).orElseThrow();
+
         var jwtToken = jwtService.generateToken(user);
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+
     }
 
 }
