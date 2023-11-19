@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+@Component("userRepository")
 public interface UserRepository extends JpaRepository<User, Integer>, SearchEngineUserByUserAuthentication<User> {
 
     Optional<User> findByUserAuthentication(UserAuthentication userAuthentication);

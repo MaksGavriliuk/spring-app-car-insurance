@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+@Component("insuranceAgentRepository")
 public interface InsuranceAgentRepository extends JpaRepository<InsuranceAgent, Integer>, SearchEngineUserByUserAuthentication<InsuranceAgent> {
     Optional<InsuranceAgent> findByUserAuthentication(UserAuthentication userAuthentication);
 
