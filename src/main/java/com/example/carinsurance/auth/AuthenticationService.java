@@ -12,8 +12,12 @@ import lombok.RequiredArgsConstructor;
 import com.example.carinsurance.models.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -66,32 +70,33 @@ public class AuthenticationService {
                 )
         );
 
-        String jwtToken, role;
+        String jwtToken;
+        Map<String, Object> currentUser = new HashMap<>();
 
-        var user = userRepository.findByUserAuthentication(
+        UserDetails user = userRepository.findByUserAuthentication(
                 userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
         if (user != null) {
             jwtToken = jwtService.generateToken(user);
-            role = "user";
+            currentUser.put("user", user);
         }
         else {
             var insuranceAgent = insuranceAgentRepository.findByUserAuthentication(
                     userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
             if (insuranceAgent != null) {
                 jwtToken = jwtService.generateToken(insuranceAgent);
-                role = "insurance_agent";
+                currentUser.put("user", insuranceAgent);
             }
             else {
                 var admin = adminRepository.findByUserAuthentication(
                         userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
                 jwtToken = jwtService.generateToken(admin);
-                role = "admin";
+                currentUser.put("user", admin);
             }
         }
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .role(role)
+                .user(currentUser)
                 .build();
 
     }
