@@ -4,8 +4,6 @@ package com.example.carinsurance.auth;
 import com.example.carinsurance.config.JwtService;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.UserAuthentication;
-import com.example.carinsurance.repositories.AdminRepository;
-import com.example.carinsurance.repositories.InsuranceAgentRepository;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import com.example.carinsurance.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,17 +14,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
+    private final SearchEngineUserRoleByUserAuthentication searchEngineUserRoleByUserAuthentication;
     private final UserRepository userRepository;
-    private final InsuranceAgentRepository insuranceAgentRepository;
-    private final AdminRepository adminRepository;
     private final UserAuthenticationRepository userAuthenticationRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -54,7 +48,9 @@ public class AuthenticationService {
 
         userAuthenticationRepository.save(userAuth);
         userRepository.save(user);
+
         var jwtToken = jwtService.generateToken(user);
+
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -70,33 +66,12 @@ public class AuthenticationService {
                 )
         );
 
-        String jwtToken;
-        Map<String, Object> currentUser = new HashMap<>();
-
-        UserDetails user = userRepository.findByUserAuthentication(
-                userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
-        if (user != null) {
-            jwtToken = jwtService.generateToken(user);
-            currentUser.put("user", user);
-        }
-        else {
-            var insuranceAgent = insuranceAgentRepository.findByUserAuthentication(
-                    userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
-            if (insuranceAgent != null) {
-                jwtToken = jwtService.generateToken(insuranceAgent);
-                currentUser.put("user", insuranceAgent);
-            }
-            else {
-                var admin = adminRepository.findByUserAuthentication(
-                        userAuthenticationRepository.findByLogin(request.getLogin())).orElse(null);
-                jwtToken = jwtService.generateToken(admin);
-                currentUser.put("user", admin);
-            }
-        }
+        UserDetails user = searchEngineUserRoleByUserAuthentication.searchUser(userAuthenticationRepository.findByLogin(request.getLogin()));
+        String jwtToken = jwtService.generateToken(user);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .user(currentUser)
+                .user(user)
                 .build();
 
     }

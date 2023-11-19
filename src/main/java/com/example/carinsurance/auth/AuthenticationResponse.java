@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Map;
 
 @Data
 @Builder
@@ -14,5 +14,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class AuthenticationResponse {
     private String token;
-    private Map<String, Object> user;
+    private UserDetails user;
 }
