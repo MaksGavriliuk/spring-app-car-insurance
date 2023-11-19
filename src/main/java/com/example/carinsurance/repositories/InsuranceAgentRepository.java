@@ -5,9 +5,11 @@ import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.InsuranceAgent;
 import com.example.carinsurance.models.UserAuthentication;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public interface InsuranceAgentRepository extends JpaRepository<InsuranceAgent, Integer>, SearchEngineUserByUserAuthentication<InsuranceAgent> {
     Optional<InsuranceAgent> findByUserAuthentication(UserAuthentication userAuthentication);
 
