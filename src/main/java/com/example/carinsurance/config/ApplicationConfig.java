@@ -1,5 +1,6 @@
 package com.example.carinsurance.config;
 
+import com.example.carinsurance.auth.SearchEngineUserRoleByUserAuthentication;
 import com.example.carinsurance.exceptions.UserException;
 import com.example.carinsurance.models.Admin;
 import com.example.carinsurance.models.InsuranceAgent;
@@ -27,29 +28,13 @@ import java.util.Optional;
 
 public class ApplicationConfig {
 
-    private final UserRepository userRepository;
-    private final AdminRepository adminRepository;
-    private final InsuranceAgentRepository insuranceAgentRepository;
     private final UserAuthenticationRepository userAuthenticationRepository;
+    private final SearchEngineUserRoleByUserAuthentication searchEngineUserRoleByUserAuthentication;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return login -> {
-            Optional<User> user = userRepository.findByUserAuthentication(userAuthenticationRepository.findByLogin(login));
-            if (user.isPresent()) {
-                return user.get(); // Return the User object if found
-            } else {
-                Optional<Admin> admin = adminRepository.findByUserAuthentication(userAuthenticationRepository.findByLogin(login));
-                if (admin.isPresent()) {
-                    return admin.get(); // Return the Admin object if found
-                } else {
-                    Optional<InsuranceAgent> insuranceAgent = insuranceAgentRepository.findByUserAuthentication(userAuthenticationRepository.findByLogin(login));
-                    if (insuranceAgent.isPresent())
-                        return insuranceAgent.get();
-                    else throw new UsernameNotFoundException("Пользователь не найден");
-                }
-            }
-        };
+        return login ->
+            searchEngineUserRoleByUserAuthentication.searchUser(userAuthenticationRepository.findByLogin(login));
     }
 
 
