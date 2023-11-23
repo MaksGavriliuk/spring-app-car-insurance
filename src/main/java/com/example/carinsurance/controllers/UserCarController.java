@@ -1,6 +1,7 @@
 package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.dtos.UserCarDTO;
+import com.example.carinsurance.models.Car;
 import com.example.carinsurance.models.UserCar;
 import com.example.carinsurance.services.UserCarService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,11 @@ public class UserCarController {
     @GetMapping
     public List<UserCar> getUserCars(){
         return userCarService.listUserCars();
+    }
+
+    @GetMapping("/cars/{id}")
+    public List<Car> getCarsByUserId(@PathVariable int id) {
+        return userCarService.getCarsByUserId(id);
     }
 
     @PostMapping("/create")

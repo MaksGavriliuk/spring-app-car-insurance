@@ -4,6 +4,7 @@ import com.example.carinsurance.dtos.UserCarDTO;
 import com.example.carinsurance.exceptions.CarException;
 import com.example.carinsurance.exceptions.UserCarException;
 import com.example.carinsurance.exceptions.UserException;
+import com.example.carinsurance.models.Car;
 import com.example.carinsurance.models.UserCar;
 import com.example.carinsurance.repositories.CarRepository;
 import com.example.carinsurance.repositories.UserCarRepository;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,6 +27,15 @@ public class UserCarService {
 
     public List<UserCar> listUserCars() {
         return userCarRepository.findAll();
+    }
+
+    public List<Car> getCarsByUserId(int userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new UserException("Пользователя с таким id не существует"));
+        return userCarRepository.findCarsByUserId(userId)
+                .stream()
+                .map(UserCar::getCar)
+                .collect(Collectors.toList());
     }
 
     public void saveUserCar(UserCarDTO userCarDTO) {
