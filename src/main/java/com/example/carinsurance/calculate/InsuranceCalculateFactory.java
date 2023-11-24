@@ -1,5 +1,8 @@
 package com.example.carinsurance.calculate;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class InsuranceCalculateFactory {
     public InsuranceCalculateStrategy createInsuranceCalculation(String calculationType) {
         return switch (calculationType) {
