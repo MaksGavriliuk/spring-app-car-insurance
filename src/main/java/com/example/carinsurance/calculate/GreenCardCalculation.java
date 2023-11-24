@@ -1,10 +1,10 @@
 package com.example.carinsurance.calculate;
 
-import com.example.carinsurance.models.UserCar;
+import com.example.carinsurance.dtos.UserCarDTO;
 
 public class GreenCardCalculation implements InsuranceCalculateStrategy {
     @Override
-    public double insuranceCalculate(UserCar userCar) {
-        return 0;
+    public double insuranceCalculate(UserCarDTO userCarDTO) {
+        return 1;
     }
 }

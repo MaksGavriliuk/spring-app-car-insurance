@@ -1,6 +1,7 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.calculate.InsuranceCalculateFactory;
+import com.example.carinsurance.dtos.UserCarDTO;
 import com.example.carinsurance.models.UserCar;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,9 @@ public class InsuranceCalculateService {
 
     private final InsuranceCalculateFactory insuranceCalculateFactory;
 
-    public double calculate(UserCar userCar, String calculationType){
+    public double calculate(UserCarDTO userCarDTO, String calculationType){
         return insuranceCalculateFactory.createInsuranceCalculation(calculationType)
-                .insuranceCalculate(userCar);
+                .insuranceCalculate(userCarDTO);
     }
 
 }
