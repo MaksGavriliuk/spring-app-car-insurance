@@ -1,6 +1,7 @@
 package com.example.carinsurance.controllers;
 
 
+import com.example.carinsurance.dtos.CalculationDTO;
 import com.example.carinsurance.dtos.UserCarDTO;
 import com.example.carinsurance.services.InsuranceCalculateService;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +22,9 @@ public class InsuranceCalculateController {
     @PostMapping
     public ResponseEntity<Double> calculate(
             @RequestParam(name = "insurance-type") String calculateType,
-            @RequestBody UserCarDTO userCarDTO
+            @RequestBody CalculationDTO calculationDTO
     ) {
-        double result = insuranceCalculateService.calculate(userCarDTO, calculateType);
+        double result = insuranceCalculateService.calculate(calculationDTO, calculateType);
         return ResponseEntity.ok().body(result);
     }
 

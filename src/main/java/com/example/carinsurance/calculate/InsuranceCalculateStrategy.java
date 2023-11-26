@@ -1,7 +1,7 @@
 package com.example.carinsurance.calculate;
 
-import com.example.carinsurance.dtos.UserCarDTO;
+import com.example.carinsurance.dtos.CalculationDTO;
 
 public interface InsuranceCalculateStrategy {
-    double insuranceCalculate(UserCarDTO userCarDTO);
+    double insuranceCalculate(CalculationDTO calculationDTO);
 }
