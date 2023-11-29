@@ -81,6 +81,14 @@ public class ContractService {
         return contractRepository.findById(id).orElseThrow(() -> new ContractException("Страховки с таким id не существует"));
     }
 
+    public List<Contract> findNotApprovedContracts() {
+        return contractRepository
+                .findAll()
+                .stream()
+                .filter(contract -> contract.getStatus().equalsIgnoreCase("не одобрена"))
+                .collect(Collectors.toList());
+    }
+
 
     public Contract mapContractDTOToContract(ContractDTO contractDTO) {
         Contract contract = new Contract();

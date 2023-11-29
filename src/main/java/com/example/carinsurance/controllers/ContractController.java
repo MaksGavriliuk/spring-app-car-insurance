@@ -27,11 +27,6 @@ public class ContractController {
     private final ContractService contractService;
 
 
-//    @GetMapping
-//    public List<Contract> getContracts() {
-//        return contractService.listContracts();
-//    }
-
     @GetMapping
     public ResponseEntity<List<Contract>> getContractsByUserId(@RequestParam(name = "user-id", required = false) Integer userId) {
         List<Contract> contracts = contractService.listContracts(userId);
@@ -59,6 +54,12 @@ public class ContractController {
     @GetMapping("/{id}")
     public Contract getContractById(@PathVariable int id) {
         return contractService.getContractById(id);
+    }
+
+    @GetMapping("/not-approved")
+    public ResponseEntity<List<Contract>> getNotApprovedContracts() {
+        List<Contract> contracts = contractService.findNotApprovedContracts();
+        return ResponseEntity.ok().body(contracts);
     }
 
 }
