@@ -34,12 +34,7 @@ public class ContractController {
 
     @GetMapping
     public ResponseEntity<List<Contract>> getContractsByUserId(@RequestParam(name = "user-id", required = false) Integer userId) {
-        List<Contract> contracts;
-        if (userId != null) {
-            contracts = contractService.getContractsByUserId(userId);
-        } else {
-            contracts = contractService.listContracts();
-        }
+        List<Contract> contracts = contractService.listContracts(userId);
         return ResponseEntity.ok().body(contracts);
     }
 

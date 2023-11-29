@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -35,8 +36,12 @@ public class ContractService {
                 .collect(Collectors.toList());
     }
 
-    public List<Contract> listContracts() {
-        return contractRepository.findAll();
+    public List<Contract> listContracts(Integer userId) {
+        List<Contract> contracts = contractRepository.findAll();
+        return (userId == null) ? contracts : contracts
+                .stream()
+                .filter(contract -> Objects.equals(contract.getUserCar().getUser().getId(), userId))
+                .collect(Collectors.toList());
     }
 
     public void saveContract(ContractDTO contractDTO) {
