@@ -1,5 +1,6 @@
 package com.example.carinsurance.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class InsuranceType {
     @Column(name = "percent", precision = 5, scale = 2)
     private BigDecimal percent;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "insuranceType")
     private List<Contract> contracts;
 

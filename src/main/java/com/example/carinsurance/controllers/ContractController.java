@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,9 +27,20 @@ public class ContractController {
     private final ContractService contractService;
 
 
+//    @GetMapping
+//    public List<Contract> getContracts() {
+//        return contractService.listContracts();
+//    }
+
     @GetMapping
-    public List<Contract> getContracts() {
-        return contractService.listContracts();
+    public ResponseEntity<List<Contract>> getContractsByUserId(@RequestParam(name = "user-id", required = false) Integer userId) {
+        List<Contract> contracts;
+        if (userId != null) {
+            contracts = contractService.getContractsByUserId(userId);
+        } else {
+            contracts = contractService.listContracts();
+        }
+        return ResponseEntity.ok().body(contracts);
     }
 
     @PostMapping("/create")
