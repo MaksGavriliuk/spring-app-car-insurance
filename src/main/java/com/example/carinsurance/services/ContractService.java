@@ -89,6 +89,14 @@ public class ContractService {
                 .collect(Collectors.toList());
     }
 
+    public List<Contract> findApprovedContracts(int agentId) {
+        return contractRepository
+                .findAll()
+                .stream()
+                .filter(contract -> contract.getInsuranceAgent().getId() == agentId)
+                .collect(Collectors.toList());
+    }
+
 
     public Contract mapContractDTOToContract(ContractDTO contractDTO) {
         Contract contract = new Contract();

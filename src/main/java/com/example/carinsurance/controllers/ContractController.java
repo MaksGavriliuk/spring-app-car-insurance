@@ -62,4 +62,12 @@ public class ContractController {
         return ResponseEntity.ok().body(contracts);
     }
 
+    @GetMapping("/approved/{id}")
+    public ResponseEntity<List<Contract>> getApprovedContracts(@PathVariable int id) {
+        List<Contract> contracts = contractService.findApprovedContracts(id);
+        return ResponseEntity.ok().body(contracts);
+    }
+
+
+
 }
