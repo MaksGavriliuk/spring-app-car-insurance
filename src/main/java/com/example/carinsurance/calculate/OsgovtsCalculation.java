@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OsgovtsCalculation implements InsuranceCalculateStrategy {
     @Override
-    public double insuranceCalculate(Car car, User user, List<Date> dates) {
+    public double insuranceCalculate(Car car, User user, long daysBetween) {
         return 0;
     }
 }
