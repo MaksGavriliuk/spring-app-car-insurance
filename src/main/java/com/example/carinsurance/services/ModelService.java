@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -23,11 +24,12 @@ public class ModelService {
     private final BrandRepository brandRepository;
 
 
-    public List<Model> listModels(String modelName) {
-        if (modelName != null) {
-            return modelRepository.findByModel(modelName);
-        }
-        return modelRepository.findAll();
+    public List<Model> listModels(String brand) {
+        List<Model> models = modelRepository.findAll();
+        return (brand == null) ? models : models
+                .stream()
+                .filter(model -> model.getBrand().getBrand().equalsIgnoreCase(brand))
+                .collect(Collectors.toList());
     }
 
     public void saveModel(ModelDTO modelDTO) {

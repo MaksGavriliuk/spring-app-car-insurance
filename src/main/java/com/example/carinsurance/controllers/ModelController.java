@@ -28,8 +28,8 @@ public class ModelController {
 
 
     @GetMapping
-    public List<Model> getModels(@RequestParam(name = "model", required = false) String model) {
-        return modelService.listModels(model);
+    public List<Model> getModels(@RequestParam(name = "brand", required = false) String brand) {
+        return modelService.listModels(brand);
     }
 
     @PostMapping("/create")
