@@ -33,9 +33,9 @@ public class ModelController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createModel(@RequestBody ModelDTO modelDTO) {
-        modelService.saveModel(modelDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Model> createModel(@RequestBody ModelDTO modelDTO) {
+        Model model = modelService.saveModel(modelDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(model);
     }
 
     @DeleteMapping("/{id}")

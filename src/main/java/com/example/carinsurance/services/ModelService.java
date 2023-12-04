@@ -32,10 +32,11 @@ public class ModelService {
                 .collect(Collectors.toList());
     }
 
-    public void saveModel(ModelDTO modelDTO) {
+    public Model saveModel(ModelDTO modelDTO) {
         brandRepository.findById(modelDTO.getBrandId()).orElseThrow(() -> new BrandException("Бренд не существует"));
         Model model = mapModelDTOToModel(modelDTO);
         modelRepository.save(model);
+        return model;
     }
 
     public void deleteModel(int id) {
