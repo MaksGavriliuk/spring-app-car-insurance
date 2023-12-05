@@ -30,7 +30,7 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public void saveCar(CarDTO carDTO) {
+    public Car saveCar(CarDTO carDTO) {
 
         modelRepository.findById(carDTO.getModelId()).orElseThrow(() -> new ModelException("Модель не найдена"));
         engineVolumeRepository.findById(carDTO.getEngineVolumeId()).orElseThrow(() -> new EngineVolumeException("Объём двигателя не найден"));
@@ -38,6 +38,8 @@ public class CarService {
 
         Car car = mapCarDTOToCar(carDTO);
         carRepository.save(car);
+
+        return car;
 
     }
 

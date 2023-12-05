@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +46,7 @@ public class AuthenticationService {
                 .sex(request.getSex())
                 .experience(request.getExperience())
                 .userAuthentication(userAuth)
+                .feedbacks(new ArrayList<>())
                 .build();
 
         userAuthenticationRepository.save(userAuth);
@@ -53,6 +56,7 @@ public class AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .user(user)
                 .build();
 
     }

@@ -32,9 +32,9 @@ public class CarController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Void> createCar(@RequestBody CarDTO carDTO) {
-        carService.saveCar(carDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<Car> createCar(@RequestBody CarDTO carDTO) {
+        Car car = carService.saveCar(carDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(car);
     }
 
     @DeleteMapping("/{id}")
