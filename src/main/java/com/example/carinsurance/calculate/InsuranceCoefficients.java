@@ -22,7 +22,7 @@ public class InsuranceCoefficients {
 
     public static final BigDecimal CASKO_COEFFICIENT = new BigDecimal("1.2");
 
-    public static final BigDecimal GREEN_CARD_FUEL_COEFFICIENT = new BigDecimal("1.1");
+    public static final BigDecimal GREEN_CARD_COEFFICIENT = new BigDecimal("1.1");
 
     public static final BigDecimal CURRENT_VALUE_COEFFICIENT = new BigDecimal("0.000005");
 
@@ -33,8 +33,5 @@ public class InsuranceCoefficients {
     public static final BigDecimal EXPERIENCE_LESS_THAN_2_COEFFICIENT = new BigDecimal("1.05");
 
     public static final BigDecimal EXPERIENCE_MORE_THAN_2_COEFFICIENT = new BigDecimal("1.03");
-
-
-
 
 }
