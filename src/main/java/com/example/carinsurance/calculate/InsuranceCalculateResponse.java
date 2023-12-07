@@ -1,10 +1,5 @@
 package com.example.carinsurance.calculate;
 
-import lombok.Data;
 
-
-@Data
-public class InsuranceCalculateResponse {
-    private Double amount;
-    private Double payoutAmount;
+public record InsuranceCalculateResponse(double amount, double payoutAmount) {
 }

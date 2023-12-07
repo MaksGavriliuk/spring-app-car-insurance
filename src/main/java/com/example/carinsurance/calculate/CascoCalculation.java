@@ -6,7 +6,7 @@ import com.example.carinsurance.models.User;
 
 public class CascoCalculation implements InsuranceCalculateStrategy {
     @Override
-    public double insuranceCalculate(Car car, User user, long daysBetween) {
-        return 1;
+    public InsuranceCalculateResponse insuranceCalculate(Car car, User user, long daysBetween) {
+        return new InsuranceCalculateResponse(1, 2);
     }
 }

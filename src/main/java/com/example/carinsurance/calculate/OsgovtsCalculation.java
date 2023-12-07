@@ -6,7 +6,7 @@ import com.example.carinsurance.models.User;
 
 public class OsgovtsCalculation implements InsuranceCalculateStrategy {
     @Override
-    public double insuranceCalculate(Car car, User user, long daysBetween) {
-        return 0;
+    public InsuranceCalculateResponse insuranceCalculate(Car car, User user, long daysBetween) {
+        return new InsuranceCalculateResponse(1, 2);
     }
 }

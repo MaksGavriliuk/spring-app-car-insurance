@@ -6,7 +6,7 @@ import com.example.carinsurance.models.User;
 
 public class GreenCardCalculation implements InsuranceCalculateStrategy {
     @Override
-    public double insuranceCalculate(Car car, User user, long daysBetween) {
-        return daysBetween;
+    public InsuranceCalculateResponse insuranceCalculate(Car car, User user, long daysBetween) {
+        return new InsuranceCalculateResponse(daysBetween, 45);
     }
 }

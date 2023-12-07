@@ -8,5 +8,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface InsuranceCalculateStrategy {
-    double insuranceCalculate(Car car, User user, long daysBetween);
+    InsuranceCalculateResponse insuranceCalculate(Car car, User user, long daysBetween);
 }
