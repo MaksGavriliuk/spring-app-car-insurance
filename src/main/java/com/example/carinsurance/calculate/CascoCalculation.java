@@ -20,7 +20,6 @@ public class CascoCalculation implements InsuranceCalculateStrategy {
     private BigDecimal calculatePremium(Car car, User user, long daysBetween) {
         return InsuranceCoefficients.CASKO_COEFFICIENT
                 .multiply(calculateEngineVolumePremium(car))
-                .multiply(calculateEngineVolumePremium(car))
                 .multiply(calculateFuelTypePremium(car))
                 .multiply(calculateCurrentValuePremium(car))
                 .multiply(calculateAgePremium(user))
@@ -52,7 +51,7 @@ public class CascoCalculation implements InsuranceCalculateStrategy {
     }
 
     private BigDecimal calculateCurrentValuePremium(Car car) {
-        return car.getCurrentValue().multiply(InsuranceCoefficients.CURRENT_VALUE_COEFFICIENT);
+        return car.getCurrentValue().multiply(InsuranceCoefficients.CURRENT_VALUE_COEFFICIENT).multiply(new BigDecimal("3"));
     }
 
 

@@ -19,7 +19,6 @@ public class GreenCardCalculation implements InsuranceCalculateStrategy {
     private BigDecimal calculatePremium(Car car, User user, long daysBetween) {
         return InsuranceCoefficients.GREEN_CARD_COEFFICIENT
                 .multiply(calculateEngineVolumePremium(car))
-                .multiply(calculateEngineVolumePremium(car))
                 .multiply(calculateFuelTypePremium(car))
                 .multiply(calculateCurrentValuePremium(car))
                 .multiply(calculateAgePremium(user))
