@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -25,8 +26,12 @@ public class UserCarService {
     private final CarRepository carRepository;
 
 
-    public List<UserCar> listUserCars() {
-        return userCarRepository.findAll();
+    public List<UserCar> listUserCars(Integer userId, Integer carId) {
+        return (userId == null && carId == null) ? userCarRepository.findAll() : userCarRepository.findAll()
+                .stream()
+                .filter(userCar -> Objects.equals(userCar.getUser().getId(), userId)
+                        && Objects.equals(userCar.getCar().getId(), carId))
+                .collect(Collectors.toList());
     }
 
     public List<Car> getCarsByUserId(int userId) {
@@ -50,7 +55,7 @@ public class UserCarService {
 
     }
 
-    public void deleteUserCar(int id){
+    public void deleteUserCar(int id) {
         userCarRepository.deleteById(id);
     }
 
@@ -67,7 +72,7 @@ public class UserCarService {
 
     }
 
-    public UserCar getUserCarById(int id){
+    public UserCar getUserCarById(int id) {
         return userCarRepository.findById(id)
                 .orElseThrow(() -> new UserCarException("Связи автомобиль-пользователь с таким id не существует"));
     }

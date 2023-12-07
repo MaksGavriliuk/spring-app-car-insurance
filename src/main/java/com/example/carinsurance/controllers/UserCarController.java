@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,8 +29,11 @@ public class UserCarController {
 
 
     @GetMapping
-    public List<UserCar> getUserCars(){
-        return userCarService.listUserCars();
+    public List<UserCar> getUserCars(
+            @RequestParam(name = "user-id", required = false) Integer userId,
+            @RequestParam(name = "car-id", required = false) Integer carId
+    ) {
+        return userCarService.listUserCars(userId, carId);
     }
 
     @GetMapping("/cars/{id}")
