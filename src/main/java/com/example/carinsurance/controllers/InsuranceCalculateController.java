@@ -1,8 +1,8 @@
 package com.example.carinsurance.controllers;
 
 
+import com.example.carinsurance.calculate.InsuranceCalculateResponse;
 import com.example.carinsurance.dtos.CalculationDTO;
-import com.example.carinsurance.dtos.UserCarDTO;
 import com.example.carinsurance.services.InsuranceCalculateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +20,11 @@ public class InsuranceCalculateController {
     private final InsuranceCalculateService insuranceCalculateService;
 
     @PostMapping
-    public ResponseEntity<Double> calculate(
+    public ResponseEntity<InsuranceCalculateResponse> calculate(
             @RequestParam(name = "insurance-type") String calculateType,
             @RequestBody CalculationDTO calculationDTO
     ) {
-        double result = insuranceCalculateService.calculate(calculationDTO, calculateType);
+        InsuranceCalculateResponse result = insuranceCalculateService.calculate(calculationDTO, calculateType);
         return ResponseEntity.ok().body(result);
     }
 

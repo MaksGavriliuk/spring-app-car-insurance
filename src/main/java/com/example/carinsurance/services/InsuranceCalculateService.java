@@ -2,6 +2,7 @@ package com.example.carinsurance.services;
 
 import com.example.carinsurance.calculate.DaysBetweenDates;
 import com.example.carinsurance.calculate.InsuranceCalculateFactory;
+import com.example.carinsurance.calculate.InsuranceCalculateResponse;
 import com.example.carinsurance.dtos.CalculationDTO;
 import com.example.carinsurance.exceptions.CarException;
 import com.example.carinsurance.exceptions.UserException;
@@ -20,7 +21,7 @@ public class InsuranceCalculateService {
     private final CarRepository carRepository;
     private final UserRepository userRepository;
 
-    public double calculate(CalculationDTO calculationDTO, String calculationType) {
+    public InsuranceCalculateResponse calculate(CalculationDTO calculationDTO, String calculationType) {
 
         Car car = carRepository.findById(calculationDTO.getCarId())
                 .orElseThrow(() -> new CarException("Машины с таким id не существует"));

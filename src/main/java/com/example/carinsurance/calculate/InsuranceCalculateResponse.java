@@ -1,5 +1,7 @@
 package com.example.carinsurance.calculate;
 
 
-public record InsuranceCalculateResponse(double amount, double payoutAmount) {
+import java.math.BigDecimal;
+
+public record InsuranceCalculateResponse(BigDecimal amount, BigDecimal payoutAmount) {
 }
