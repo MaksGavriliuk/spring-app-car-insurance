@@ -5,6 +5,7 @@ import com.example.carinsurance.exceptions.ContractException;
 import com.example.carinsurance.exceptions.InsuranceAgentException;
 import com.example.carinsurance.exceptions.InsuranceTypeException;
 import com.example.carinsurance.exceptions.UserCarException;
+import com.example.carinsurance.filter.ContractFilter;
 import com.example.carinsurance.models.Contract;
 import com.example.carinsurance.repositories.ContractRepository;
 import com.example.carinsurance.repositories.InsuranceAgentRepository;
@@ -13,6 +14,7 @@ import com.example.carinsurance.repositories.UserCarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -109,6 +111,23 @@ public class ContractService {
         contract.setPayoutAmount(contractDTO.getPayoutAmount());
         contract.setStatus(contractDTO.getStatus());
         return contract;
+    }
+
+    public List<Contract> statistics(ContractFilter contractFilter) {
+        return contractRepository.findAll()
+                .stream()
+                .filter(contract -> contractFilter.getBrandId() == null || contract.getUserCar().getCar().getModel().getBrand().getId().equals(contractFilter.getBrandId()))
+                .filter(contract -> contractFilter.getEngineVolumeId() == null || contract.getUserCar().getCar().getEngineVolume().getId().equals(contractFilter.getEngineVolumeId()))
+                .filter(contract -> contractFilter.getFuelTypeId() == null || contract.getUserCar().getCar().getFuelType().getId().equals(contractFilter.getFuelTypeId()))
+                .filter(contract -> contractFilter.getUserId() == null || contract.getUserCar().getUser().getId().equals(contractFilter.getUserId()))
+                .filter(contract -> contractFilter.getInsuranceAgentId() == null || contract.getInsuranceAgent().getId().equals(contractFilter.getInsuranceAgentId()))
+                .filter(contract -> contractFilter.getInsuranceTypeId() == null || contract.getInsuranceType().getId().equals(contractFilter.getInsuranceTypeId()))
+                .filter(contract -> contractFilter.getStartDate() == null || contract.getStartDate().after(contractFilter.getStartDate()))
+                .filter(contract -> contractFilter.getEndDate() == null || contract.getEndDate().before(contractFilter.getEndDate()))
+                .filter(contract -> contractFilter.getAmount() == null || contract.getAmount().compareTo(contractFilter.getAmount()) > 0)
+                .filter(contract -> contractFilter.getPayoutAmount() == null || contract.getPayoutAmount().compareTo(contractFilter.getPayoutAmount()) > 0)
+                .filter(contract -> contractFilter.getStatus() == null || contract.getStatus().equals(contractFilter.getStatus()))
+                .collect(Collectors.toList());
     }
 
 }

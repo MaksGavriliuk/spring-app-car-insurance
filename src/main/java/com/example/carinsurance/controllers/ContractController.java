@@ -1,6 +1,7 @@
 package com.example.carinsurance.controllers;
 
 import com.example.carinsurance.dtos.ContractDTO;
+import com.example.carinsurance.filter.ContractFilter;
 import com.example.carinsurance.models.Contract;
 import com.example.carinsurance.services.ContractService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -68,6 +70,11 @@ public class ContractController {
         return ResponseEntity.ok().body(contracts);
     }
 
+    @PostMapping("/statistic")
+    public ResponseEntity<List<Contract>> getContractsStatistic(@RequestBody ContractFilter contractFilter) {
+        List<Contract> contracts = contractService.statistics(contractFilter);
+        return ResponseEntity.ok().body(contracts);
+    }
 
 
 }
