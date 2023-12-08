@@ -1,9 +1,12 @@
 package com.example.carinsurance.controllers;
 
 
+import com.example.carinsurance.calculate.PremiumCalculation;
 import com.example.carinsurance.dtos.InsuranceAgentDTO;
+import com.example.carinsurance.models.Contract;
 import com.example.carinsurance.models.InsuranceAgent;
 import com.example.carinsurance.services.InsuranceAgentService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -44,8 +48,16 @@ public class InsuranceAgentController {
     }
 
     @GetMapping("/{id}")
-    public InsuranceAgent getInsuranceAgentById(@PathVariable Integer id) {
-        return insuranceAgentService.getInsuranceAgentById(id);
+    public ResponseEntity<InsuranceAgent> getInsuranceAgentById(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(insuranceAgentService.getInsuranceAgentById(id));
+    }
+
+    @PostMapping("/premium")
+    public ResponseEntity<BigDecimal> calculatePremium(
+            @RequestBody PremiumCalculation premiumCalculation)
+    {
+        BigDecimal premium = insuranceAgentService.calculatePremium(premiumCalculation);
+        return ResponseEntity.ok().body(premium);
     }
 
 }

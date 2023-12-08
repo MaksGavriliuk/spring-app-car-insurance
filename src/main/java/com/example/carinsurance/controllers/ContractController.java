@@ -48,9 +48,9 @@ public class ContractController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateContract(@PathVariable Integer id, @RequestBody ContractDTO contractDTO) {
-        contractService.updateContract(id, contractDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Contract> updateContract(@PathVariable Integer id, @RequestBody ContractDTO contractDTO) {
+       Contract contract= contractService.updateContract(id, contractDTO);
+        return ResponseEntity.ok().body(contract);
     }
 
     @GetMapping("/{id}")

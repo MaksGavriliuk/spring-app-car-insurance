@@ -63,7 +63,7 @@ public class ContractService {
         contractRepository.deleteById(id);
     }
 
-    public void updateContract(int id, ContractDTO contractDTO) {
+    public Contract updateContract(int id, ContractDTO contractDTO) {
 
         insuranceAgentRepository.findById(contractDTO.getInsuranceAgentId())
                 .orElseThrow(() -> new InsuranceAgentException("Страхового агента с таким id не существует"));
@@ -75,6 +75,8 @@ public class ContractService {
         Contract contract = mapContractDTOToContract(contractDTO);
         contract.setId(id);
         contractRepository.save(contract);
+
+        return contract;
 
     }
 

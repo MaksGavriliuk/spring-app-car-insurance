@@ -1,8 +1,10 @@
 package com.example.carinsurance.services;
 
+import com.example.carinsurance.calculate.PremiumCalculation;
 import com.example.carinsurance.dtos.InsuranceAgentDTO;
 import com.example.carinsurance.exceptions.InsuranceAgentException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
+import com.example.carinsurance.models.Contract;
 import com.example.carinsurance.models.InsuranceAgent;
 import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.InsuranceAgentRepository;
@@ -11,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -67,6 +70,15 @@ public class InsuranceAgentService {
         insuranceAgent.setProfit(insuranceAgentDTO.getProfit());
         return insuranceAgent;
 
+    }
+
+    public BigDecimal calculatePremium(PremiumCalculation premiumCalculation) {
+        InsuranceAgent insuranceAgent = insuranceAgentRepository.findById(premiumCalculation.getInsuranceAgentId())
+                .orElseThrow(() -> new InsuranceAgentException("Агента с таким id нет"));
+        BigDecimal premium = premiumCalculation.getAmount().multiply(premiumCalculation.getPercent().divide(new BigDecimal("100")));
+        insuranceAgent.setProfit(insuranceAgent.getProfit().add(premium));
+        insuranceAgentRepository.save(insuranceAgent);
+        return premium;
     }
 
 }
