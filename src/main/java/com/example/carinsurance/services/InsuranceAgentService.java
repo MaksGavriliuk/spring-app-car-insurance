@@ -1,11 +1,14 @@
 package com.example.carinsurance.services;
 
 import com.example.carinsurance.dtos.InsuranceAgentDTO;
+import com.example.carinsurance.exceptions.InsuranceAgentException;
 import com.example.carinsurance.exceptions.UserAuthenticationException;
 import com.example.carinsurance.models.InsuranceAgent;
+import com.example.carinsurance.models.UserAuthentication;
 import com.example.carinsurance.repositories.InsuranceAgentRepository;
 import com.example.carinsurance.repositories.UserAuthenticationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,14 +31,23 @@ public class InsuranceAgentService {
         if (userAuthenticationRepository.findByLogin(insuranceAgentDTO.getUserAuthentication().getLogin()) != null)
             throw new UserAuthenticationException("Пользователь с таким логином уже существует");
 
-        userAuthenticationRepository.save(insuranceAgentDTO.getUserAuthentication());
+        UserAuthentication userAuthentication = new UserAuthentication(
+                insuranceAgentDTO.getUserAuthentication().getLogin(),
+                new BCryptPasswordEncoder().encode(insuranceAgentDTO.getUserAuthentication().getLogin())
+        );
 
         InsuranceAgent insuranceAgent = mapInsuranceAgentDTOToInsuranceAgent(insuranceAgentDTO);
+        insuranceAgent.setUserAuthentication(userAuthentication);
+
+        userAuthenticationRepository.save(userAuthentication);
         insuranceAgentRepository.save(insuranceAgent);
 
     }
 
     public void deleteInsuranceAgent(int id) {
+        InsuranceAgent insuranceAgent = insuranceAgentRepository.findById(id)
+                .orElseThrow(() -> new InsuranceAgentException("Агента с таким id не существует"));
+        userAuthenticationRepository.deleteById(insuranceAgent.getUserAuthentication().getId());
         insuranceAgentRepository.deleteById(id);
     }
 
@@ -47,7 +59,6 @@ public class InsuranceAgentService {
     public InsuranceAgent mapInsuranceAgentDTOToInsuranceAgent(InsuranceAgentDTO insuranceAgentDTO) {
 
         InsuranceAgent insuranceAgent = new InsuranceAgent();
-        insuranceAgent.setUserAuthentication(insuranceAgentDTO.getUserAuthentication());
         insuranceAgent.setSurname(insuranceAgentDTO.getSurname());
         insuranceAgent.setName(insuranceAgentDTO.getName());
         insuranceAgent.setPatronymic(insuranceAgentDTO.getPatronymic());
